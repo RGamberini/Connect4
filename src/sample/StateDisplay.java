@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
  */
 public class StateDisplay extends StackPane {
     private State currentState;
-    private int size = 175;
+    private int size = 250;
     public int height = size * 3;
     public int width = size * 4;
     public StateDisplay() {

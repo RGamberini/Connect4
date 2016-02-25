@@ -90,3 +90,14 @@ JFXButton MaterialIconView {
     -fx-background-color: #CFD8DC;
 }
 
+.main-menu {
+    -fx-background-color: derive(#607D8B,-20%);
+}
+
+.main-menu-button {
+    -fx-border-color: WHITE;
+    -fx-background-radius: 900em;
+    -fx-border-radius: 900em;
+    -fx-padding: 16 16 16 16;
+}
+

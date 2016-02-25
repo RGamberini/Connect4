@@ -1,0 +1,2 @@
+logo 72
+menuoptions 34.8
