@@ -1,0 +1,92 @@
+.root .text {
+    -fx-font-family: "Verdana";
+}
+.card {
+	-fx-background-color: rgb(255.0, 255.0, 255.0);
+	-fx-background-radius: 4.0;
+	-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,
+		1.5);
+	-fx-padding: 16 16 16 16;
+}
+
+.card .label .text {
+    -fx-fill: rgba(0,0,0,.68);
+}
+
+.colorPickerLabel .text {
+    -fx-fill: rgba(0,0,0,.68);
+    -fx-font-size: 16px;
+}
+
+.card JFXButton .text {
+    -fx-fill: rgba(0,0,0,.68);
+    -fx-font-size: 16px;
+}
+JFXButton FontAwesomeIconView {
+    -fx-fill: WHITE;
+}
+
+JFXButton MaterialDesignIconView {
+    -fx-fill: WHITE;
+}
+
+JFXButton MaterialIconView {
+    -fx-fill: WHITE;
+}
+
+.iconButton {
+    -fx-background-radius: 180px;
+    -fx-background-color: #607D8B;
+    -fx-cursor: hand;
+}
+
+.divider {
+    -fx-border-width: 1.0;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: rgb(0,0,0,.12);
+}
+
+.jfx-decorator {
+	-fx-decorator-color: derive(#607D8B,-20%);
+}
+.jfx-decorator .jfx-decorator-buttons-container{
+	-fx-background-color:-fx-decorator-color;
+}
+.jfx-decorator .resize-border{
+	-fx-border-color: -fx-decorator-color;
+	-fx-border-width: 0 4 4 4;
+}
+
+.jfx-tool-bar{
+	-fx-font-size: 20.0;
+	-fx-font-weight: BOLD;
+	-fx-background-color: #607D8B;
+	-fx-pref-width: 100.0%;
+	-fx-pref-height: 64.0px;
+}
+
+.jfx-tool-bar HBox {
+	-fx-alignment:center;
+	-fx-spacing: 25.0;
+	-fx-padding: 0.0 10.0;
+}
+
+.jfx-tool-bar Label{
+	-fx-text-fill: WHITE;
+}
+
+.jfx-tool-bar .jfx-options-burger{
+	-fx-padding: 22px;
+}
+.jfx-tool-bar .jfx-options-burger StackPane{
+	-fx-pref-width:4px;
+}
+
+.jfx-tool-bar .jfx-rippler {
+	-fx-rippler-fill: WHITE;
+}
+
+.state-display {
+    -fx-background-color: #CFD8DC;
+}
+
