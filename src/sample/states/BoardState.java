@@ -1,5 +1,6 @@
 package sample.states;
 
+import sample.Connect4Board;
 import sample.InvalidBoardException;
 import sample.Tile;
 
@@ -12,7 +13,7 @@ import java.util.Arrays;
 public class BoardState {
     Tile[][] state;
     public BoardState() {
-        state = new Tile[7][6];
+        state = new Tile[Connect4Board.COLUMNS][Connect4Board.ROWS];
         for (int x = 0; x < state.length; x++)
             for (int y = 0; y < state[x].length; y++)
                 state[x][y] = Tile.EMPTY;
@@ -23,17 +24,17 @@ public class BoardState {
             this.state = initialState;
     }
 
-    public boolean isValidBoard(Tile[][] state) throws InvalidBoardException {
+    public static boolean isValidBoard(Tile[][] state) throws InvalidBoardException {
         if (state.length != 7 || state[0].length != 6) {
             throw new InvalidBoardException("Incorrect board size");
         } else {
             for (int x = 0; x < state.length; x++) {
                 for (int y = 0; y < state[x].length; y++) {
                     if (state[x][y] != Tile.EMPTY) {
-                        for (int x2 = x; x < state.length; x++)
-                            if (state[x2][y] == Tile.EMPTY) {
+                        //System.out.println("Tile at (" + x + ", " + y + ") belongs to " + state[x][y] +"\nChecking cells below");
+                        for (int y2 = y; y2 < state[x].length; y2++)
+                            if (state[x][y2] == Tile.EMPTY)
                                 throw new InvalidBoardException("Floating Pieces");
-                            }
                     }
                 }
             }
@@ -97,11 +98,11 @@ public class BoardState {
          * Right and Up
          */
         for (int x = 0; x < state.length - 3; x++) {
-            for (int y = 0; y < state[x].length; y++) {
+            for (int y = 3; y < state[x].length; y++) {
                 if (state[x][y] != Tile.EMPTY &&
-                        state[x][y] == state[x-1][y+1] &&
-                        state[x][y] == state[x-2][y+2] &&
-                        state[x][y] == state[x-3][y+3])
+                        state[x][y] == state[x+1][y-1] &&
+                        state[x][y] == state[x+2][y-2] &&
+                        state[x][y] == state[x+3][y-3])
                     return true;
             }
         }

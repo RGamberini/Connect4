@@ -15,7 +15,7 @@ public class MainTest {
         Tile[][] diagonalwin = ImageParser.parseImage("tests\\diagonalwin");
         Tile[][] floating = ImageParser.parseImage("tests\\floating");
 
-        System.out.println("Should be 6 " + horizontalwin.length + " Should be 7 " + horizontalwin[0].length);
+        System.out.println("Should be 7 " + horizontalwin.length + " Should be 6 " + horizontalwin[0].length);
 
         System.out.print("Testing for horizontal win: ");
         if (new BoardState(horizontalwin).checkForGameOver())
@@ -40,8 +40,6 @@ public class MainTest {
             new BoardState(floating);
         } catch (InvalidBoardException e) {
             System.out.println("Passed!");
-        } finally {
-            System.out.println("Failed?");
         }
     }
 }

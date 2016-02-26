@@ -101,3 +101,11 @@ JFXButton MaterialIconView {
     -fx-padding: 16 16 16 16;
 }
 
+.gamedisplay-vbox {
+    -fx-background-color: derive(#607D8B,-20%);
+}
+
+.connect4-display {
+    -fx-background-color: #607D8B;
+}
+

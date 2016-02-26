@@ -1,12 +1,9 @@
 package sample;
 
-import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+import sample.states.GameDisplayState;
 import sample.states.StartMenuState;
 import sample.states.State;
-
-import java.util.Collection;
-import java.util.PriorityQueue;
 
 /**
  * Created by Rudy Gamberini on 2/24/2016.
@@ -19,8 +16,9 @@ public class StateDisplay extends StackPane {
     public StateDisplay() {
         this.getStyleClass().add("state-display");
 
-        StartMenuState startMenu = new StartMenuState();
-        changeState(startMenu);
+        Connect4Board board = new Connect4Board();
+        State state = new StartMenuState();
+        changeState(state);
     }
 
     public void changeState(State newState) {
