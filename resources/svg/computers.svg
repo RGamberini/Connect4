@@ -9,16 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="161.25584mm"
+   width="181.84499mm"
    height="21.879456mm"
-   viewBox="0 0 571.37897 77.525629"
+   viewBox="0 0 644.33266 77.525629"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="newgame.svg"
-   inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\newgame_HEADER.png"
-   inkscape:export-xdpi="72"
-   inkscape:export-ydpi="72">
+   sodipodi:docname="computers.svg"
+   inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\players.png"
+   inkscape:export-xdpi="34.891354"
+   inkscape:export-ydpi="34.891354">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -27,17 +27,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="406.20564"
+     inkscape:cx="410.15156"
      inkscape:cy="42.243229"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-text-baseline="false"
-     inkscape:window-width="690"
-     inkscape:window-height="403"
-     inkscape:window-x="1922"
-     inkscape:window-y="495"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
      showguides="true"
      objecttolerance="10000"
      guidetolerance="10000"
@@ -66,7 +66,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -74,7 +74,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-5.195924,-1.2499962)">
+     transform="translate(-1.25,-1.2499962)">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:98.14134979px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -83,14 +83,14 @@
        id="text4155"
        sodipodi:linespacing="125%"
        transform="scale(0.95747664,1.0444119)"
-       inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\logo.png"
-       inkscape:export-xdpi="88.639992"
-       inkscape:export-ydpi="88.639992"><tspan
+       inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\computers.png"
+       inkscape:export-xdpi="34.78017"
+       inkscape:export-ydpi="34.78017"><tspan
          sodipodi:role="line"
          id="tspan4157"
          x="-3.5823843"
          y="74.036125"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">NEW GAME</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">COMPUTERS</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot6711"

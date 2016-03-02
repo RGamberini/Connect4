@@ -21,8 +21,8 @@ public class Main extends Application {
         buttonContainer.getChildren().remove(1);
 
         Scene scene = new Scene(prettyWindow);
-        primaryStage.setWidth(stateDisplay.width);
-        primaryStage.setHeight(stateDisplay.height);
+        primaryStage.setWidth(stateDisplay.width.get());
+        primaryStage.setHeight(stateDisplay.height.get());
 
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);

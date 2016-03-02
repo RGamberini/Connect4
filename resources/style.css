@@ -101,11 +101,26 @@ JFXButton MaterialIconView {
     -fx-padding: 16 16 16 16;
 }
 
+.main-menu-button .jfx-rippler {
+    -fx-rippler-fill: WHITE;
+}
+
+.no-border {
+    -fx-border-width: 0px;
+}
+
 .gamedisplay-vbox {
     -fx-background-color: derive(#607D8B,-20%);
 }
 
 .connect4-display {
     -fx-background-color: #607D8B;
+}
+
+.carrot .jfx-rippler {
+    -fx-rippler-fill: WHITE;
+}
+
+.number{
 }
 

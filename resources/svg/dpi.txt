@@ -1,2 +1,3 @@
 logo 72
 menuoptions 34.8
+players 18.57

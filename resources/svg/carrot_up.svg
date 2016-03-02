@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="144.49785mm"
+   height="81.861305mm"
+   viewBox="0 0 512.00025 290.05974"
+   id="svg4703"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\carrot_up.png"
+   inkscape:export-xdpi="3.7233708"
+   inkscape:export-ydpi="3.7233708"
+   sodipodi:docname="carrot_up.svg">
+  <defs
+     id="defs4705" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-110.42845"
+     inkscape:cy="93.601305"
+     inkscape:document-units="px"
+     inkscape:current-layer="g5252"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4708">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-58.285589,-335.90376)">
+    <g
+       id="g5252"
+       transform="translate(58.285339,335.90376)">
+      <path
+         id="path5254"
+         d="M 58.328,280.068 256.002,82.395 453.676,280.069 c 13.32,13.321 35.021,13.321 48.309,0 13.354,-13.32 13.354,-35.021 0,-48.342 L 280.273,9.982 C 273.562,3.289 264.815,0 256.002,0 247.189,0 238.425,3.289 231.731,9.982 L 10.003,231.727 c -13.337,13.321 -13.337,35.021 0,48.342 13.32,13.321 35.005,13.321 48.325,-0.001 z"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff;fill-opacity:1" />
+    </g>
+  </g>
+</svg>
