@@ -36,7 +36,7 @@ public class Connect4Board {
             return;
         }
         nextState.set(p, owner);
-        currentState.set(nextState);
+        currentState.setValue(nextState);
     }
 
     public Tile get(Point p) {

@@ -1,6 +1,7 @@
 package sample;
 
 import com.sun.istack.internal.Nullable;
+import javafx.animation.Transition;
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -13,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import sample.Connect4Board;
 import sample.StateDisplay;
 import sample.states.BoardState;
@@ -41,6 +43,16 @@ public class Connect4Display extends GridPane {
         this.height = (int) tile.getHeight() * Connect4Board.ROWS;
         this.setMaxSize(width, height);
         this.hoveredCell = new SimpleObjectProperty<>();
+
+        /**
+         * Clip rectangle so you don't see the game pieces before you should
+         */
+        Rectangle clipRectangle = new Rectangle();
+        this.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+            clipRectangle.setWidth(newValue.getWidth());
+            clipRectangle.setHeight(newValue.getHeight());
+        });
+        this.setClip(clipRectangle);
 
         for (int x = 0; x < Connect4Board.COLUMNS; x++) {
             this.addColumn(0);
@@ -77,12 +89,16 @@ public class Connect4Display extends GridPane {
     }
 
     public void updateState(Observable o, BoardState oldVal, BoardState newVal) {
-        Tile[][] state = newVal.getState();
-        for (int x = 0; x < state.length; x++) {
-            for (int y = 0; y < state[x].length; y++) {
-                if(state[x][y] != Tile.EMPTY) {
+        Tile[][] oldState = oldVal.getState();
+        Tile[][] newState = newVal.getState();
+        for (int x = 0; x < newState.length; x++) {
+            for (int y = 0; y < newState[x].length; y++) {
+                if(newState[x][y] != Tile.EMPTY) {
                     cellArray[x][y].getChildren().clear();
-                    cellArray[x][y].getChildren().add(getChip(state[x][y]));
+                    ImageView chip = getChip(newState[x][y]);
+                    cellArray[x][y].getChildren().add(chip);
+                    if (oldState[x][y] == Tile.EMPTY)
+                        Animations.sweepInDown(chip, height).play();
                 }
             }
         }

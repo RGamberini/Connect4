@@ -130,7 +130,12 @@ public class BoardState {
     }
 
     public Tile[][] getState() {
-        //No exterior meddling of state!
-        return state.clone();
+        Tile[][] deepCopy = new Tile[state.length][state[0].length];
+        for (int x = 0; x < deepCopy.length; x++) {
+            for (int y = 0; y < deepCopy[x].length; y++) {
+                deepCopy[x][y] = state[x][y];
+            }
+        }
+        return deepCopy;
     }
 }
