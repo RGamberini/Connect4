@@ -11,12 +11,19 @@ import java.util.Arrays;
  * Created by Rudy Gamberini on 2/25/2016.
  */
 public class BoardState {
-    Tile[][] state;
+    private Tile[][] state;
+    public Tile turn;
     public BoardState() {
+        turn = Tile.PLAYER1;
         state = new Tile[Connect4Board.COLUMNS][Connect4Board.ROWS];
         for (int x = 0; x < state.length; x++)
             for (int y = 0; y < state[x].length; y++)
                 state[x][y] = Tile.EMPTY;
+    }
+
+    public BoardState(BoardState oldState, Tile turn) throws InvalidBoardException {
+        this(oldState.getState());
+        this.turn = turn;
     }
 
     public BoardState(Tile[][] initialState) throws InvalidBoardException {
@@ -50,6 +57,10 @@ public class BoardState {
         if (inBounds(point)) {
             this.state[point.x][point.y] = value;
         }
+    }
+
+    public Tile get(Point point) {
+        return state[point.x][point.y];
     }
 
     public boolean checkForGameOver() {
@@ -108,5 +119,18 @@ public class BoardState {
         }
 
         return false;
+    }
+
+    public Point getTopCell(int x) {
+        for (int y = state[x].length - 1; y >= 0; y--) {
+            if (state[x][y] == Tile.EMPTY)
+                return new Point(x, y);
+        }
+        return new Point(x, -1);
+    }
+
+    public Tile[][] getState() {
+        //No exterior meddling of state!
+        return state.clone();
     }
 }

@@ -23,6 +23,7 @@ public class Main extends Application {
         Scene scene = new Scene(prettyWindow);
         primaryStage.setWidth(stateDisplay.width.get());
         primaryStage.setHeight(stateDisplay.height.get());
+        primaryStage.setTitle("Connect 4");
 
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);

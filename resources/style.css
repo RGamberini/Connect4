@@ -99,6 +99,7 @@ JFXButton MaterialIconView {
     -fx-background-radius: 900em;
     -fx-border-radius: 900em;
     -fx-padding: 16 16 16 16;
+    -fx-cursor: hand;
 }
 
 .main-menu-button .jfx-rippler {

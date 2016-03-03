@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="90.596634mm"
-   height="88.464546mm"
-   viewBox="0 0 321.01169 313.45705"
+   width="82.960655mm"
+   height="82.960655mm"
+   viewBox="0 0 293.95507 293.95507"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="board.svg"
+   sodipodi:docname="chip.svg"
    inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\board.png"
    inkscape:export-xdpi="28.712067"
    inkscape:export-ydpi="28.712067">
@@ -29,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="287.45989"
-     inkscape:cy="132.83223"
+     inkscape:cx="122.91279"
+     inkscape:cy="123.08026"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -60,10 +60,10 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(373.3373,-197.72719)">
+     transform="translate(359.80801,-207.47719)">
     <path
-       style="opacity:1;fill:#4c646f;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m -373.3373,197.72719 0,313.45704 321.011705,0 0,-313.45704 -321.011705,0 z m 160.50586,9.75 A 146.97719,146.97719 0 0 1 -65.852935,354.45571 146.97719,146.97719 0 0 1 -212.83144,501.43227 146.97719,146.97719 0 0 1 -359.80801,354.45571 146.97719,146.97719 0 0 1 -212.83144,207.47719 Z"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -212.83144,207.47719 A 146.97719,146.97719 0 0 1 -65.852935,354.45571 146.97719,146.97719 0 0 1 -212.83144,501.43227 146.97719,146.97719 0 0 1 -359.80801,354.45571 146.97719,146.97719 0 0 1 -212.83144,207.47719 Z"
        id="rect4136"
        inkscape:connector-curvature="0" />
   </g>

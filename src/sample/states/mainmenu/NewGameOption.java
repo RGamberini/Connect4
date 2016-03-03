@@ -15,7 +15,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import sample.Animations;
+import sample.Connect4Board;
 import sample.NumberImage;
+import sample.states.GameDisplayState;
 import sample.states.StateMachine;
 
 /**
@@ -23,7 +25,7 @@ import sample.states.StateMachine;
  */
 public class NewGameOption extends StartMenuOption {
     private IntegerProperty players;
-    public NewGameOption(StateMachine main, StackPane header, StackPane contentStack) {
+    public NewGameOption(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
         super(main, header, contentStack);
         headerImage = new ImageView("newgame_HEADER.png");
 
@@ -80,6 +82,7 @@ public class NewGameOption extends StartMenuOption {
          * Buttons
          */
         JFXButton confirm = new JFXButton("", new ImageView("confirm.png"));
+        confirm.setOnMouseClicked((event) -> main.createNewGame(new Connect4Board()));
         confirm.maxWidthProperty().bind(Bindings.divide(main._getWidth(), 1.4));
         confirm.getStyleClass().add("main-menu-button");
 

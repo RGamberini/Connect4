@@ -1,6 +1,5 @@
 package sample.states.mainmenu;
 
-import com.jfoenix.controls.JFXToolbar;
 import com.sun.istack.internal.Nullable;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Transition;
@@ -10,13 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import sample.Animations;
 import sample.states.State;
 import sample.states.StateMachine;
-
-import java.util.Arrays;
-import java.util.stream.Stream;
 
 /**
  * Created by Nick on 2/26/2016.
@@ -29,8 +24,8 @@ public abstract class StartMenuOption extends State {
     protected StackPane header;
     protected Transition entrance;
 
-    public StartMenuOption(StateMachine main, StackPane header, StackPane contentStack) {
-        super(main);
+    public StartMenuOption(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
+        super((StateMachine) main);
 
         this.header = header;
         //header.getChildren().add(logo);
@@ -52,7 +47,7 @@ public abstract class StartMenuOption extends State {
         content.spacingProperty().bind(Bindings.multiply(.05, this.main._getHeight()));
         content.prefHeightProperty().bind(this.main._getHeight());
         Node[] contentToDelete = contentStack.getChildren().toArray(new Node[0]);
-        Node[] headerImageToDelete = (Node[]) header.getChildren().toArray(new Node[0]);
+        Node[] headerImageToDelete = header.getChildren().toArray(new Node[0]);
 
         entrance = new ParallelTransition(Animations.sweepIn(headerImage, !backwards), Animations.sweepIn(content, !backwards));
         if (exitTransition != null)

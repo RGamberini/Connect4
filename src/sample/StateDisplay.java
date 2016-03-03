@@ -1,10 +1,12 @@
 package sample;
 
+import javafx.animation.Transition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+import sample.states.GameDisplayState;
 import sample.states.mainmenu.MainMenuHeaderAndMachine;
 import sample.states.State;
 import sample.states.StateMachine;
@@ -21,24 +23,27 @@ public class StateDisplay extends StackPane implements StateMachine {
         this.getStyleClass().add("state-display");
 
         Connect4Board board = new Connect4Board();
+        //State state = new GameDisplayState(this, new Connect4Board());
         State state = new MainMenuHeaderAndMachine(this);
         changeState(state);
     }
 
     @Override
     public void changeState(State newState) {
+        Transition exitTransition = null;
         if (this.currentState != null)
-            this.currentState.exit();
+             exitTransition = this.currentState.exit();
         this.currentState = newState;
-        this.currentState.enter(null);
+        this.currentState.enter(exitTransition);
     }
 
     @Override
     public void changeState(State newState, boolean backwards) {
+        Transition exitTransition = null;
         if (this.currentState != null)
-            this.currentState.exit(backwards);
+            exitTransition = this.currentState.exit();
         this.currentState = newState;
-        this.currentState.enter(null, backwards);
+        this.currentState.enter(exitTransition, backwards);
     }
 
     @Override

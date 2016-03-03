@@ -28,7 +28,7 @@ public class MainMenuOptions extends StartMenuOption {
             this.getStyleClass().add("main-menu-button");
         }
     }
-    public MainMenuOptions(StateMachine main, StackPane header, StackPane contentStack) {
+    public MainMenuOptions(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
         super(main, header, contentStack);
         headerImage = new ImageView("logo.png");
 

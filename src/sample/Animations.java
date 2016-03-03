@@ -12,49 +12,24 @@ import javafx.util.Duration;
  */
 public class Animations {
     private static final Interpolator materialInterp = Interpolator.SPLINE(.62,.28,.23,.99);
+    public static TranslateTransition sweepOutDown(Node node) {
+        TranslateTransition sweepOut = new TranslateTransition(Duration.millis(700), node);
 
-    public static ParallelTransition newCardAnimation(Node node) {
-        node.setTranslateX(-180);
-        node.setTranslateY(-180);
-        node.setScaleX(0);
-        node.setScaleY(0);
-        ParallelTransition NewCard = new ParallelTransition(node);
-
-        ScaleTransition cardScale = new ScaleTransition(Duration.millis(700));
-        TranslateTransition cardTranslate = new TranslateTransition(Duration.millis(700));
-
-        cardTranslate.setToX(0);
-        cardTranslate.setToY(0);
-        cardTranslate.setCycleCount(1);
-        cardTranslate.setInterpolator(materialInterp);
-
-        cardScale.setInterpolator(materialInterp);
-        cardScale.setToX(1);
-        cardScale.setToY(1);
-        cardScale.setCycleCount(1);
-
-        NewCard.getChildren().addAll(cardScale, cardTranslate);
-        return NewCard;
+        double toY = node.getLayoutY() + node.getLayoutBounds().getHeight() + 16;
+        sweepOut.setToY(toY);
+        sweepOut.setInterpolator(materialInterp);
+        sweepOut.setCycleCount(1);
+        return sweepOut;
     }
 
-    public static ParallelTransition newCardDestroyAnimation(Node node) {
-        ParallelTransition NewCardDestroy = new ParallelTransition(node);
+    public static TranslateTransition sweepInDown(Node node, double height) {
+        TranslateTransition sweepOut = new TranslateTransition(Duration.millis(700), node);
 
-        ScaleTransition cardScale = new ScaleTransition(Duration.millis(700));
-        TranslateTransition cardTranslate = new TranslateTransition(Duration.millis(700));
-
-        cardTranslate.setToX(-180);
-        cardTranslate.setToY(-180);
-        cardTranslate.setCycleCount(1);
-        cardTranslate.setInterpolator(materialInterp);
-
-        cardScale.setInterpolator(materialInterp);
-        cardScale.setToX(0);
-        cardScale.setToY(0);
-        cardScale.setCycleCount(1);
-
-        NewCardDestroy.getChildren().addAll(cardScale, cardTranslate);
-        return NewCardDestroy;
+        node.setTranslateY(height * -1);
+        sweepOut.setToY(0);
+        sweepOut.setInterpolator(materialInterp);
+        sweepOut.setCycleCount(1);
+        return sweepOut;
     }
 
     public static TranslateTransition sweepOut(Node node, boolean toTheRight) {

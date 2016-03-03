@@ -3,10 +3,13 @@ package sample;
 import com.jfoenix.controls.JFXToolbar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import sample.states.GameDisplayState;
 
 /**
@@ -34,6 +37,14 @@ public class DisplayControls extends StackPane {
         BorderPane.setMargin(logo, new Insets(0, 16, 0, 0));
         BorderPane.setAlignment(logo, Pos.CENTER);
         toolbar.setCenter(logo);
+
+        ImageView settings = new ImageView("settings.png");
+        JFXToolbar bottomToolbar = new JFXToolbar();
+        bottomToolbar.maxHeightProperty().bind(settings.getImage().heightProperty());
+        bottomToolbar.setCenter(settings);
+        bottomToolbar.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.rgb(0,0,0,0.26), 10, 0.12, -1, -2));
+        VBox bottomVBox = new VBox(bottomToolbar);
+        borderPane.setBottom(bottomVBox);
 
         borderPane.setCenter(display);
         this.getChildren().add(borderPane);
