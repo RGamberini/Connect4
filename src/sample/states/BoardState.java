@@ -81,30 +81,42 @@ public class BoardState {
         /**
          * First check for vertical runs
          */
+        ArrayList<Point> inARun = new ArrayList<>();
         for (int x = 0; x < state.length; x++) {
             for (int y = state[x].length - 1; y > 2; y--) {
                 if (state[x][y] != Tile.EMPTY) {
                     ArrayList<Point> run = new ArrayList<>();
-                    run.add(new Point(x, y));
+                    Point origin = new Point(x, y);
+                    run.add(origin);
                     for (int r = 1; r < 4; r++)
-                        if (state[x][y - r] == state[x][y])
-                            run.add(new Point(x, y+r));
-                    if (run.size() > 1)
+                        if (state[x][y - r] == state[x][y]) {
+                            Point point = new Point(x, y + r);
+                            run.add(point);
+                            inARun.add(point);
+                        }
+                    if (run.size() > 1) {
                         runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
+                        inARun.add(origin);
+                    }
                 }
             }
         }
         /**
          * Horizontal runs
          */
+        inARun.clear();
         for (int x = 0; x < state.length - 3; x++) {
             for (int y = 0; y < state[x].length; y++) {
                 if (state[x][y] != Tile.EMPTY) {
                     ArrayList<Point> run = new ArrayList<>();
-                    run.add(new Point(x, y));
+                    Point origin = new Point(x, y);
+                    run.add(origin);
                     for (int r = 1; r <= 3; r++) {
-                        if (state[x + r][y] == state[x][y])
-                            run.add(new Point(x + r, y));
+                        if (state[x + r][y] == state[x][y]) {
+                            Point point = new Point(x + r, y);
+                            run.add(point);
+                            inARun.add(point);
+                        }
                     }
                     if (run.size() > 1)
                         runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
@@ -115,14 +127,19 @@ public class BoardState {
          * And finally the diagonals
          * Right and Down
          */
+        inARun.clear();
         for (int x = 0; x < state.length - 3; x++) {
             for (int y = 0; y < state[x].length - 3; y++) {
                 if (state[x][y] != Tile.EMPTY) {
                     ArrayList<Point> run = new ArrayList<>();
-                    run.add(new Point(x, y));
+                    Point origin = new Point(x, y);
+                    run.add(origin);
                     for (int r = 1; r <= 3; r++)
-                        if (state[x+r][y+r] == state[x][y])
-                            run.add(new Point(x+r, y+r));
+                        if (state[x+r][y+r] == state[x][y]) {
+                            Point point = new Point(x + r, y + r);
+                            run.add(point);
+                            inARun.add(point);
+                        }
                     if (run.size() > 1)
                         runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
                 }
@@ -131,14 +148,19 @@ public class BoardState {
         /**
          * Right and Up
          */
+        inARun.clear();
         for (int x = 0; x < state.length - 3; x++) {
             for (int y = 3; y < state[x].length; y++) {
                 if (state[x][y] != Tile.EMPTY) {
                     ArrayList<Point> run = new ArrayList<>();
-                    run.add(new Point(x, y));
+                    Point origin = new Point(x, y);
+                    run.add(origin);
                     for (int r = 1; r <= 3; r++)
-                        if (state[x+r][y-r] == state[x][y])
-                            run.add(new Point(x+r, y+r));
+                        if (state[x+r][y-r] == state[x][y]) {
+                            Point point = new Point(x + r, y + r);
+                            run.add(point);
+                            inARun.add(point);
+                        }
                     if (run.size() > 1)
                         runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
                 }
@@ -165,6 +187,16 @@ public class BoardState {
                 return new Point(x, y);
         }
         return new Point(x, -1);
+    }
+
+    public Point[] getAllMoves() {
+        ArrayList<Point> moves = new ArrayList<>();
+        for (int x = 0; x < Connect4Board.COLUMNS; x++) {
+            Point openTopCell = getTopCell(x);
+            if (openTopCell.y != -1)
+                moves.add(openTopCell);
+        }
+        return moves.toArray(new Point[moves.size()]);
     }
 
     public Tile[][] getState() {

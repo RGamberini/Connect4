@@ -38,12 +38,43 @@ public class Player {
     }
 
 
-    public Point evaluateBestMove(BoardState newVal) {
-        ArrayList<Point[]> runs = newVal.getRuns(tile);
-        if (runs.size() == 0)
-            return newVal.getTopCell(5);
-        runs.sort((p, c) -> p.length - c.length);
-        Point[] bestRun = runs.get(0);
-        return newVal.getTopCell(bestRun[0].x);
+    public Point evaluateBestMove(BoardState state) {
+        Point bestMove = state.getTopCell(3);
+        int bestValue = 0;
+        for (Point point: state.getAllMoves()) {
+            BoardState newState = null;
+            try {
+                newState = new BoardState(state.getState());
+            } catch (InvalidBoardException e) {
+                e.printStackTrace();
+            }
+            assert newState != null;
+            newState.set(point, tile);
+            int newValue = evaluateBoardState(newState);
+            if (newValue > bestValue) {
+                bestMove = point;
+                bestValue = newValue;
+            }
+        }
+        System.out.println("(" + bestMove.x + ", " + bestMove.y + ") has a value of " + bestValue);
+        return bestMove;
+    }
+
+    private int evaluateBoardState(BoardState state) {
+        int myLongestRun = -1;
+        int enemyLongestRun = -1;
+        for (Tile turn: Connect4Board.turnOrder) {
+            for (Point[] run: state.getRuns(turn)) {
+                if(turn == tile) {
+                    if (myLongestRun < run.length) {
+                        myLongestRun = run.length;
+                    }
+                } else {
+                    if(enemyLongestRun < run.length)
+                        enemyLongestRun = run.length;
+                }
+            }
+        }
+        return myLongestRun;
     }
 }
