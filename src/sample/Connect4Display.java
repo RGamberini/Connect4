@@ -1,11 +1,12 @@
 package sample;
 
 import com.sun.istack.internal.Nullable;
-import javafx.animation.Transition;
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.effect.ColorAdjust;
@@ -15,34 +16,37 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import sample.Connect4Board;
-import sample.StateDisplay;
 import sample.states.BoardState;
 
 import java.awt.Point;
-import java.util.Map;
 
 /**
  * Created by Rudy Gamberini on 2/25/2016.
  */
 public class Connect4Display extends GridPane {
     private StackPane[][] cellArray;
-    private Connect4Board model;
+    public Connect4Board model;
     public int width, height;
     @Nullable private ObjectProperty<Point> hoveredCell;
+    public BooleanProperty interactable;
 
     public Connect4Display(Connect4Board model) {
         super();
         this.model = model;
-        this.cellArray = new StackPane[Connect4Board.COLUMNS][Connect4Board.ROWS];
         this.setAlignment(Pos.CENTER);
         this.getStyleClass().add("connect4-display");
         StackPane.setAlignment(this, Pos.CENTER);
+
+        this.cellArray = new StackPane[Connect4Board.COLUMNS][Connect4Board.ROWS];
         Image tile = new Image("board.png");
+
         this.width = (int) tile.getWidth() * Connect4Board.COLUMNS;
         this.height = (int) tile.getHeight() * Connect4Board.ROWS;
         this.setMaxSize(width, height);
+
         this.hoveredCell = new SimpleObjectProperty<>();
+        this.interactable = new SimpleBooleanProperty(true);
+
 
         /**
          * Clip rectangle so you don't see the game pieces before you should
@@ -55,11 +59,11 @@ public class Connect4Display extends GridPane {
         this.setClip(clipRectangle);
 
         for (int x = 0; x < Connect4Board.COLUMNS; x++) {
-            this.addColumn(0);
+            this.addColumn(x);
             for (int y = 0; y < Connect4Board.ROWS; y++) {
-                this.addRow(0);
+                this.addRow(y);
                 StackPane innerCell = new StackPane();
-                StackPane cell = new StackPane(innerCell, new ImageView("board.png"));
+                StackPane cell = new StackPane(new ImageView("board.png"), innerCell);
                 this.add(cell, x, y);
                 cellArray[x][y] = innerCell;
 
@@ -67,41 +71,56 @@ public class Connect4Display extends GridPane {
                 final int _x = x;
                 innerCell.setOnMouseEntered((event) -> {
                     Point topCell = model.getTopCell(_x);
-                    if (topCell.y != -1)
+                    if (topCell.y != -1 && interactable.get())
                         hoveredCell.setValue(topCell);
                     else hoveredCell.setValue(null);
                 });
                 innerCell.setOnMouseExited((event) -> {
                     Point topCell = model.getTopCell(_x);
-                    if (topCell.y != -1 && get(hoveredCell.get()) == cellArray[topCell.x][topCell.y]) {
+                    if (topCell.y != -1 &&
+                            get(hoveredCell.get()) == cellArray[topCell.x][topCell.y] &&
+                            interactable.get()) {
                         hoveredCell.setValue(null);
                     }
                 });
                 innerCell.setOnMouseClicked((event) -> {
-                    model.set(model.getTopCell(_x), model.getCurrentTurn());
+                    if (interactable.get())
+                        model.set(model.getTopCell(_x), model.getCurrentTurn());
                     hoveredCell.setValue(null);
+                });
+                interactable.addListener((o, oldVal, newVal) -> {
+                    if (!interactable.get()) innerCell.setCursor(Cursor.DEFAULT);
+                    else  innerCell.setCursor(Cursor.HAND);
                 });
             }
         }
 
         model.currentState.addListener(this::updateState);
         hoveredCell.addListener(this::showHoveredCell);
+        model.currentPlayer.addListener(this::updatePlayer);
+        updatePlayer(model.currentPlayer, model.currentPlayer.get(), model.currentPlayer.get());
+        interactable.bind(Bindings.not(model.won));
     }
 
     public void updateState(Observable o, BoardState oldVal, BoardState newVal) {
-        Tile[][] oldState = oldVal.getState();
-        Tile[][] newState = newVal.getState();
-        for (int x = 0; x < newState.length; x++) {
-            for (int y = 0; y < newState[x].length; y++) {
-                if(newState[x][y] != Tile.EMPTY) {
-                    cellArray[x][y].getChildren().clear();
-                    ImageView chip = getChip(newState[x][y]);
-                    cellArray[x][y].getChildren().add(chip);
-                    if (oldState[x][y] == Tile.EMPTY)
-                        Animations.sweepInDown(chip, height).play();
+            Tile[][] oldState = oldVal.getState();
+            Tile[][] newState = newVal.getState();
+            for (int x = 0; x < newState.length; x++) {
+                for (int y = 0; y < newState[x].length; y++) {
+                    if (newState[x][y] != Tile.EMPTY) {
+                        cellArray[x][y].getChildren().clear();
+                        ImageView chip = getChip(newState[x][y]);
+                        cellArray[x][y].getChildren().add(chip);
+                        if (oldState[x][y] == Tile.EMPTY)
+                            Animations.sweepInDown(chip, height).play();
+                    }
                 }
             }
-        }
+    }
+
+    public void updatePlayer(Observable o, Player oldVal, Player newVal) {
+        if(newVal.isAI())
+            interactable.set(false);
     }
 
     private StackPane get(Point p) {

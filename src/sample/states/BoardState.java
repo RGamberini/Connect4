@@ -5,7 +5,7 @@ import sample.InvalidBoardException;
 import sample.Tile;
 
 import java.awt.*;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Created by Rudy Gamberini on 2/25/2016.
@@ -13,22 +13,27 @@ import java.util.Arrays;
 public class BoardState {
     private Tile[][] state;
     public Tile turn;
+    private final Map<Tile, ArrayList<Point[]>> runs = new HashMap<>();
     public BoardState() {
         turn = Tile.PLAYER1;
         state = new Tile[Connect4Board.COLUMNS][Connect4Board.ROWS];
         for (int x = 0; x < state.length; x++)
             for (int y = 0; y < state[x].length; y++)
                 state[x][y] = Tile.EMPTY;
+        //Runs are empty because empty board
     }
 
     public BoardState(BoardState oldState, Tile turn) throws InvalidBoardException {
-        this(oldState.getState());
+        if (isValidBoard(oldState.getState()))
+            this.state = oldState.getState();
+        this.runs.putAll(oldState.runs);
         this.turn = turn;
     }
 
     public BoardState(Tile[][] initialState) throws InvalidBoardException {
         if (isValidBoard(initialState))
             this.state = initialState;
+        updateRuns();
     }
 
     public static boolean isValidBoard(Tile[][] state) throws InvalidBoardException {
@@ -57,67 +62,100 @@ public class BoardState {
         if (inBounds(point)) {
             this.state[point.x][point.y] = value;
         }
+        updateRuns();
     }
 
     public Tile get(Point point) {
         return state[point.x][point.y];
     }
 
-    public boolean checkForGameOver() {
+    public Tile getNextTurn() { return Connect4Board.turnOrder.get((Connect4Board.turnOrder.indexOf(this.turn) + 1) % Connect4Board.turnOrder.size());}
+
+    private void updateRuns() {
+        for(Tile key: Connect4Board.turnOrder) {
+            if (runs.get(key) != null)
+                runs.get(key).clear();
+            else
+                runs.put(key, new ArrayList<>());
+        }
         /**
-         * First check for horizontal wins
+         * First check for vertical runs
          */
         for (int x = 0; x < state.length; x++) {
-            for (int y = 0; y < state[x].length - 3; y++) {
-                if (state[x][y] != Tile.EMPTY &&
-                        state[x][y] == state[x][y + 1] &&
-                        state[x][y] == state[x][y + 2] &&
-                        state[x][y] == state[x][y + 3])
-                    return true;
+            for (int y = state[x].length - 1; y > 2; y--) {
+                if (state[x][y] != Tile.EMPTY) {
+                    ArrayList<Point> run = new ArrayList<>();
+                    run.add(new Point(x, y));
+                    for (int r = 1; r < 4; r++)
+                        if (state[x][y - r] == state[x][y])
+                            run.add(new Point(x, y+r));
+                    if (run.size() > 1)
+                        runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
+                }
             }
         }
-
         /**
-         * Now for vertical
+         * Horizontal runs
          */
         for (int x = 0; x < state.length - 3; x++) {
             for (int y = 0; y < state[x].length; y++) {
-                if (state[x][y] != Tile.EMPTY &&
-                        state[x][y] == state[x+1][y] &&
-                        state[x][y] == state[x+2][y] &&
-                        state[x][y] == state[x+3][y])
-                    return true;
+                if (state[x][y] != Tile.EMPTY) {
+                    ArrayList<Point> run = new ArrayList<>();
+                    run.add(new Point(x, y));
+                    for (int r = 1; r <= 3; r++) {
+                        if (state[x + r][y] == state[x][y])
+                            run.add(new Point(x + r, y));
+                    }
+                    if (run.size() > 1)
+                        runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
+                }
             }
         }
-
         /**
          * And finally the diagonals
          * Right and Down
          */
-
         for (int x = 0; x < state.length - 3; x++) {
             for (int y = 0; y < state[x].length - 3; y++) {
-                if (state[x][y] != Tile.EMPTY &&
-                        state[x][y] == state[x+1][y+1] &&
-                        state[x][y] == state[x+2][y+2] &&
-                        state[x][y] == state[x+3][y+3])
-                    return true;
+                if (state[x][y] != Tile.EMPTY) {
+                    ArrayList<Point> run = new ArrayList<>();
+                    run.add(new Point(x, y));
+                    for (int r = 1; r <= 3; r++)
+                        if (state[x+r][y+r] == state[x][y])
+                            run.add(new Point(x+r, y+r));
+                    if (run.size() > 1)
+                        runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
+                }
             }
         }
-
         /**
          * Right and Up
          */
         for (int x = 0; x < state.length - 3; x++) {
             for (int y = 3; y < state[x].length; y++) {
-                if (state[x][y] != Tile.EMPTY &&
-                        state[x][y] == state[x+1][y-1] &&
-                        state[x][y] == state[x+2][y-2] &&
-                        state[x][y] == state[x+3][y-3])
-                    return true;
+                if (state[x][y] != Tile.EMPTY) {
+                    ArrayList<Point> run = new ArrayList<>();
+                    run.add(new Point(x, y));
+                    for (int r = 1; r <= 3; r++)
+                        if (state[x+r][y-r] == state[x][y])
+                            run.add(new Point(x+r, y+r));
+                    if (run.size() > 1)
+                        runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
+                }
             }
         }
+        //System.out.println(runs.size());
+    }
 
+    public ArrayList<Point[]> getRuns(Tile tile) {
+        return this.runs.get(tile);
+    }
+
+    public boolean checkForGameOver() {
+        for (Tile key: Connect4Board.turnOrder)
+            for (Point[] run : this.runs.get(key))
+                if (run.length > 3)
+                    return true;
         return false;
     }
 

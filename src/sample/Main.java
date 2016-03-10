@@ -2,8 +2,6 @@ package sample;
 
 import com.jfoenix.controls.JFXDecorator;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -21,8 +19,8 @@ public class Main extends Application {
         buttonContainer.getChildren().remove(1);
 
         Scene scene = new Scene(prettyWindow);
-        primaryStage.setWidth(stateDisplay.width.get());
-        primaryStage.setHeight(stateDisplay.height.get());
+        primaryStage.setWidth(stateDisplay._width.get());
+        primaryStage.setHeight(stateDisplay._height.get());
         primaryStage.setTitle("Connect 4");
 
         scene.getStylesheets().add("style.css");

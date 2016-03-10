@@ -1,18 +1,10 @@
 package sample.states.mainmenu;
 
 import com.jfoenix.controls.JFXButton;
-import com.sun.istack.internal.Nullable;
-import javafx.animation.ParallelTransition;
-import javafx.animation.Transition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
-import sample.Animations;
-import sample.states.StateMachine;
 
 /**
  * Created by Nick on 2/26/2016.
@@ -42,7 +34,7 @@ public class MainMenuOptions extends StartMenuOption {
         buttons = new RudeButton[]{newgame, loadgame, options, quit};
 
         for (RudeButton button : buttons) {
-            button.prefWidthProperty().bind(Bindings.multiply(.75, main._getWidth()));
+            button.prefWidthProperty().bind(Bindings.multiply(.75, main.mainStack.maxWidthProperty()));
             button.setOnMouseClicked((event) -> {
                 if (button.nextState != null)
                     main.changeState(button.nextState);

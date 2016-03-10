@@ -3,7 +3,6 @@ package sample.states;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Transition;
 import javafx.beans.binding.Bindings;
-import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import sample.*;
 
@@ -13,9 +12,11 @@ import sample.*;
 public class GameDisplayState extends State {
     private Connect4Display display;
     private StackPane mainStack;
+    protected StateDisplay main;
 
-    public GameDisplayState(StateMachine main, Connect4Board model) {
+    public GameDisplayState(StateDisplay main, Connect4Board model) {
         super(main);
+        this.main = main;
         mainStack = new StackPane();
         mainStack.getStyleClass().add("gamedisplay-vbox");
         display = new Connect4Display(model);
@@ -24,12 +25,12 @@ public class GameDisplayState extends State {
 
     @Override
     public void enter(Transition exitTransition) {
-        mainStack.prefHeightProperty().bind(main._getHeight());
+        mainStack.prefHeightProperty().bind(main._height);
         mainStack.maxWidthProperty().bind(Bindings.add(
-                Bindings.divide(main._getWidth(), 10),
+                Bindings.divide(main._width, 10),
                 display.width
         ));
-        main._getChildren().add(mainStack);
+        main.getChildren().add(mainStack);
         Transition entrance = Animations.sweepInDown(mainStack, mainStack.getPrefHeight());
         if (exitTransition != null)
             entrance = new ParallelTransition(entrance, exitTransition);

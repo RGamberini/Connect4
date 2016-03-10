@@ -8,7 +8,7 @@ import javafx.animation.Transition;
  */
 public abstract class State {
     protected StateMachine main;
-    public State (StateMachine main) {
+    public State(StateMachine main) {
         this.main = main;
     }
 

@@ -11,7 +11,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import sample.Animations;
 import sample.states.State;
-import sample.states.StateMachine;
 
 /**
  * Created by Nick on 2/26/2016.
@@ -23,9 +22,11 @@ public abstract class StartMenuOption extends State {
     private StackPane contentStack;
     protected StackPane header;
     protected Transition entrance;
+    protected MainMenuHeaderAndMachine main;
 
     public StartMenuOption(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
-        super((StateMachine) main);
+        super(main);
+        this.main = main;
 
         this.header = header;
         //header.getChildren().add(logo);
@@ -44,8 +45,8 @@ public abstract class StartMenuOption extends State {
 
     @Override
     public void enter(@Nullable Transition exitTransition, boolean backwards) {
-        content.spacingProperty().bind(Bindings.multiply(.05, this.main._getHeight()));
-        content.prefHeightProperty().bind(this.main._getHeight());
+        content.spacingProperty().bind(Bindings.multiply(.05, this.main.mainStack.maxHeightProperty()));
+        content.prefHeightProperty().bind(this.main.mainStack.maxHeightProperty());
         Node[] contentToDelete = contentStack.getChildren().toArray(new Node[0]);
         Node[] headerImageToDelete = header.getChildren().toArray(new Node[0]);
 

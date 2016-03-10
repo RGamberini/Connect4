@@ -3,11 +3,7 @@ package sample.states.mainmenu;
 import com.jfoenix.controls.JFXToolbar;
 import javafx.animation.Transition;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import sample.Animations;
@@ -20,13 +16,15 @@ import sample.states.StateMachine;
 /**
  * Created by Rudy Gamberini on 2/24/2016.
  */
-public class MainMenuHeaderAndMachine extends State implements StateMachine{
+public class MainMenuHeaderAndMachine extends State implements StateMachine {
     private State currentState;
-    private StackPane mainStack;
+    public StackPane mainStack;
     private VBox mainVBox;
+    protected StateDisplay main;
 
-    public MainMenuHeaderAndMachine(StateMachine main) {
+    public MainMenuHeaderAndMachine(StateDisplay main) {
         super(main);
+        this.main = main;
         mainStack = new StackPane();
         Pane mainCard = new Pane();
         mainCard.getStyleClass().add("card");
@@ -46,12 +44,14 @@ public class MainMenuHeaderAndMachine extends State implements StateMachine{
         //mainCard.getChildren().add(mainVBox);
 
         JFXToolbar headerBG = new JFXToolbar();
-        headerBG.prefWidthProperty().bind(main._getWidth());
-        headerBG.minHeightProperty().bind(Bindings.multiply(.20, main._getHeight()));
+        headerBG.prefWidthProperty().bind(main._width);
+        headerBG.minHeightProperty().bind(Bindings.multiply(.20, main._height));
         StackPane headerStack = new StackPane();
         StackPane contentStack = new StackPane();
 
         mainVBox.getChildren().addAll(new StackPane(headerBG, headerStack), contentStack);
+        mainStack.maxWidthProperty().bind(Bindings.divide(main._width, 1.8));
+        mainStack.maxHeightProperty().bind(Bindings.divide(main._height, 1.3));
         mainStack.getChildren().add(mainVBox);
 
         this.changeState(new MainMenuOptions(this, headerStack, contentStack));
@@ -59,10 +59,8 @@ public class MainMenuHeaderAndMachine extends State implements StateMachine{
 
     @Override
     public void enter(Transition exitTransition) {
-        mainStack.maxWidthProperty().bind(Bindings.divide(main._getWidth(), 1.8));
-        mainStack.maxHeightProperty().bind(Bindings.divide(main._getHeight(), 1.3));
-        main._getChildren().clear();
-        main._getChildren().add(mainStack);
+        main.getChildren().clear();
+        main.getChildren().add(mainStack);
     }
 
     @Override
@@ -92,21 +90,6 @@ public class MainMenuHeaderAndMachine extends State implements StateMachine{
             exitTransition = currentState.exit(backwards);
         currentState = newState;
         currentState.enter(exitTransition, backwards);
-    }
-
-    @Override
-    public DoubleProperty _getWidth() {
-        return mainStack.maxWidthProperty();
-    }
-
-    @Override
-    public DoubleProperty _getHeight() {
-        return mainStack.maxHeightProperty();
-    }
-
-    @Override
-    public ObservableList<Node> _getChildren() {
-        return mainVBox.getChildren();
     }
 
     public void createNewGame(Connect4Board board) {
