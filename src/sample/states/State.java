@@ -13,19 +13,15 @@ public abstract class State {
     }
 
 
-    public void enter(@Nullable Transition exitTransition) {
-
-    }
+    public abstract void enter(@Nullable Transition exitTransition);
 
     public void enter(@Nullable Transition exitTransition, boolean backwards) {
-
+        enter(exitTransition);
     }
 
-    public Transition exit() {
-        return null;
-    }
+    public abstract Transition exit();
 
     public Transition exit(boolean backwards) {
-        return null;
+        return exit();
     }
 }

@@ -1,6 +1,7 @@
 package sample;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -36,16 +37,18 @@ public class Connect4Board {
             Tile tile = turnOrder.get(i);
             Player player;
             if (i < players)
-                player = new Player(this, tile, false);
+                player = new Player(this, tile);
             else
-                player = new Player(this, tile, true);
+                player = new AI(this, tile);
             this.players.put(tile, player);
         }
         currentPlayer = new SimpleObjectProperty<>(this.players.get(Tile.PLAYER1));
+        this.currentState.addListener(this::updatePlayer);
     }
     public Point getTopCell(int x) { return currentState.get().getTopCell(x);}
     public Tile getCurrentTurn() { return currentState.get().turn;}
     public Tile getNextTurn() { return this.currentState.get().getNextTurn();}
+    public Player getPlayer(Tile tile) { return  this.players.get(tile);}
 
     public void set(Point p, Tile owner) {
         BoardState nextState;
@@ -62,6 +65,10 @@ public class Connect4Board {
             return;
         }
         currentState.setValue(nextState);
+    }
+
+    public void updatePlayer(Observable o, BoardState oldVal, BoardState newVal) {
+        this.currentPlayer.set(players.get(newVal.turn));
     }
 
     public Tile get(Point p) {

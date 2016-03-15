@@ -119,7 +119,7 @@ public class Connect4Display extends GridPane {
     }
 
     public void updatePlayer(Observable o, Player oldVal, Player newVal) {
-        if(newVal.isAI())
+        if (newVal instanceof AI)
             interactable.set(false);
     }
 
