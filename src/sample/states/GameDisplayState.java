@@ -7,7 +7,6 @@ import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.scene.layout.StackPane;
 import sample.*;
-import sample.tree.TreeDisplayState;
 
 /**
  * Created by Nick on 2/25/2016.
@@ -24,7 +23,6 @@ public class GameDisplayState extends State {
         mainStack.getStyleClass().add("gamedisplay-vbox");
         display = new Connect4Display(model);
         mainStack.getChildren().add(new DisplayControls(display));
-        model.currentState.addListener(this::updatePlayer);
     }
 
     @Override
@@ -55,14 +53,4 @@ public class GameDisplayState extends State {
     public Transition exit(boolean backwards) {
         return exit();
     }
-
-    public void updatePlayer(Observable o, BoardState oldVal, BoardState newVal) {
-        Player oldPlayer = display.model.getPlayer(oldVal.turn);
-        if(oldPlayer instanceof AI) {
-            main.changeState(new TreeDisplayState(main, ((AI) oldPlayer).deciscionTree));
-        } else {
-            System.out.println("That's no moon");
-        }
-    }
-
 }

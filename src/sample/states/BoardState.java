@@ -71,6 +71,9 @@ public class BoardState {
 
     public Tile getNextTurn() { return Connect4Board.turnOrder.get((Connect4Board.turnOrder.indexOf(this.turn) + 1) % Connect4Board.turnOrder.size());}
 
+    /**
+     * Returns all winnable runs on the board
+     */
     private void updateRuns() {
         for(Tile key: Connect4Board.turnOrder) {
             if (runs.get(key) != null)
@@ -78,99 +81,82 @@ public class BoardState {
             else
                 runs.put(key, new ArrayList<>());
         }
+
         /**
-         * First check for vertical runs
+         * Directions we need to check for runs in
          */
+        Point[] directions = new Point[]{
+                // Vertical
+                new Point(0, 1),
+                // Horizontal
+                new Point(1, 0),
+                // Right and Down
+                new Point(1, 1),
+                // Right and Up
+                new Point(1, -1)
+
+        };
         ArrayList<Point> inARun = new ArrayList<>();
-        for (int x = 0; x < state.length; x++) {
-            for (int y = state[x].length - 1; y > 2; y--) {
-                if (state[x][y] != Tile.EMPTY) {
-                    ArrayList<Point> run = new ArrayList<>();
-                    Point origin = new Point(x, y);
-                    run.add(origin);
-                    for (int r = 1; r < 4; r++)
-                        if (state[x][y - r] == state[x][y]) {
-                            Point point = new Point(x, y + r);
-                            run.add(point);
-                            inARun.add(point);
+        for (Point direction: directions) {
+            inARun.clear();
+            for (int x = 0; x < state.length; x++) {
+                for (int y = 0; y < state[x].length; y++) {
+                    if (state[x][y] != Tile.EMPTY) {
+                        ArrayList<Point> run = new ArrayList<>();
+                        Point origin = new Point(x, y);
+                        if (!inARun.contains(origin)) {
+                            for (int r = 1; r <= 3; r++) {
+                                int nextX = x + (r * direction.x);
+                                int nextY = y + (r * direction.y);
+                                if (nextX < state.length && nextX >= 0 && nextY < state[x].length && nextY >= 0) {
+                                    Tile nextTile = state[nextX][nextY];
+                                    if (state[x][y] == nextTile) {
+                                        Point point = new Point(nextX, nextY);
+                                        run.add(point);
+                                    } else break;
+                                } else break;
+                            }
                         }
-                    if (run.size() > 1) {
-                        runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
-                        inARun.add(origin);
-                    }
-                }
-            }
-        }
-        /**
-         * Horizontal runs
-         */
-        inARun.clear();
-        for (int x = 0; x < state.length - 3; x++) {
-            for (int y = 0; y < state[x].length; y++) {
-                if (state[x][y] != Tile.EMPTY) {
-                    ArrayList<Point> run = new ArrayList<>();
-                    Point origin = new Point(x, y);
-                    run.add(origin);
-                    for (int r = 1; r <= 3; r++) {
-                        if (state[x + r][y] == state[x][y]) {
-                            Point point = new Point(x + r, y);
-                            run.add(point);
-                            inARun.add(point);
+                        if (run.size() > 0) {
+                            run.add(0, origin);
+                            System.out.println(state[x][y] + " has a run of length: " + run.size());
+                            runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
+                            for (Point runSegment: run)
+                                inARun.add(runSegment);
                         }
                     }
-                    if (run.size() > 1)
-                        runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
                 }
             }
         }
-        /**
-         * And finally the diagonals
-         * Right and Down
-         */
-        inARun.clear();
-        for (int x = 0; x < state.length - 3; x++) {
-            for (int y = 0; y < state[x].length - 3; y++) {
-                if (state[x][y] != Tile.EMPTY) {
-                    ArrayList<Point> run = new ArrayList<>();
-                    Point origin = new Point(x, y);
-                    run.add(origin);
-                    for (int r = 1; r <= 3; r++)
-                        if (state[x+r][y+r] == state[x][y]) {
-                            Point point = new Point(x + r, y + r);
-                            run.add(point);
-                            inARun.add(point);
-                        }
-                    if (run.size() > 1)
-                        runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
-                }
-            }
-        }
-        /**
-         * Right and Up
-         */
-        inARun.clear();
-        for (int x = 0; x < state.length - 3; x++) {
-            for (int y = 3; y < state[x].length; y++) {
-                if (state[x][y] != Tile.EMPTY) {
-                    ArrayList<Point> run = new ArrayList<>();
-                    Point origin = new Point(x, y);
-                    run.add(origin);
-                    for (int r = 1; r <= 3; r++)
-                        if (state[x+r][y-r] == state[x][y]) {
-                            Point point = new Point(x + r, y + r);
-                            run.add(point);
-                            inARun.add(point);
-                        }
-                    if (run.size() > 1)
-                        runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
-                }
-            }
-        }
-        //System.out.println(runs.size());
+        System.out.println("--------------------------------------------");
     }
 
     public ArrayList<Point[]> getRuns(Tile tile) {
         return this.runs.get(tile);
+    }
+
+    /**
+     * The heuristic function for the state, returns 10^n where n is the length longest run of the current player
+     * subtracted from the length of the longest run not owned by the current player.
+     */
+    public int getValue() {
+        int currentTurnLongestRun = 0;
+        int otherLongestRun = 0;
+        for (Tile player : Connect4Board.turnOrder) {
+            for (Point[] run : getRuns(player)) {
+                if (player == turn) {
+                    if (currentTurnLongestRun < run.length) {
+                        //System.out.println("Found a run for ME: " + run.length);
+                        currentTurnLongestRun = (int) Math.pow(10, run.length);
+                        //System.out.println("See I set it: " + currentTurnLongestRun);
+                    }
+                } else {
+                    if (otherLongestRun < run.length)
+                        otherLongestRun = (int) Math.pow(10, run.length);
+                }
+            }
+        }
+        return currentTurnLongestRun + (otherLongestRun * -1);
     }
 
     public boolean checkForGameOver() {

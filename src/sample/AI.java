@@ -1,23 +1,18 @@
 package sample;
 
 import sample.states.BoardState;
-import sample.tree.RecursiveTree;
-import sample.tree.TreeNode;
-
 import java.awt.*;
 
 /**
  * Created by Rudy Gamberini on 3/15/2016.
  */
 public class AI extends Player {
-    public RecursiveTree deciscionTree;
     public AI(Connect4Board board, Tile tile) {
         super(board, tile);
         board.currentState.addListener((o, oldVal, newVal) -> {
             AITurn(newVal);
         });
         AITurn(board.currentState.get());
-        deciscionTree = null;
     }
 
     public void AITurn(BoardState newVal) {
@@ -36,9 +31,8 @@ public class AI extends Player {
     }
 
     public Point evaluateBestMove(BoardState state, int depth) {
-        deciscionTree = new RecursiveTree(depth);
         try {
-            return recurse(state, depth, deciscionTree).space;
+            return recurse(state, depth).space;
         } catch (InvalidBoardException e) {
             e.printStackTrace();
         }
@@ -67,7 +61,7 @@ public class AI extends Player {
 //    }
 
     //Either returns the best or worst move depending on what turn it is
-    private Move recurse(BoardState state, int depth, RecursiveTree tree) throws InvalidBoardException {
+    private Move recurse(BoardState state, int depth) throws InvalidBoardException {
         Move bestMove;
         if (state.turn == tile)
             bestMove = new Move(null, Integer.MIN_VALUE);
@@ -83,7 +77,7 @@ public class AI extends Player {
 //            } else System.out.println();
             Move moveToTest;
             if (depth != 0) {
-                moveToTest = recurse(new BoardState(stateToTest, stateToTest.getNextTurn()), depth - 1, tree);
+                moveToTest = recurse(new BoardState(stateToTest, stateToTest.getNextTurn()), depth - 1);
             }
             else {
                 moveToTest = new Move(move, evaluateBoardState(stateToTest));
@@ -100,7 +94,6 @@ public class AI extends Player {
                     bestMove = new Move(move, moveToTest.value);
                 }
             }
-            tree.addNode(new TreeNode(moveToTest, stateToTest, depth));
         }
         System.out.print("At depth: " + depth);
         if (tile == state.turn)  {
@@ -110,8 +103,6 @@ public class AI extends Player {
         if (depth == 2) {
             BoardState bestState = new BoardState(state, state.getNextTurn());
             bestState.set(bestMove.space, tile);
-            tree.addNode(new TreeNode(bestMove, bestState, depth + 1));
-            System.out.println(tree);
         }
         return bestMove;
     }

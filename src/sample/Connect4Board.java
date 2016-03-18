@@ -21,7 +21,6 @@ public class Connect4Board {
     public static final int COLUMNS = 7, ROWS = 6;
     public static final ArrayList<Tile> turnOrder = new ArrayList<>();
     private Map<Tile, Player> players;
-    public SimpleObjectProperty<Player> currentPlayer;
     public BooleanProperty won;
 
     static {
@@ -42,8 +41,6 @@ public class Connect4Board {
                 player = new AI(this, tile);
             this.players.put(tile, player);
         }
-        currentPlayer = new SimpleObjectProperty<>(this.players.get(Tile.PLAYER1));
-        this.currentState.addListener(this::updatePlayer);
     }
     public Point getTopCell(int x) { return currentState.get().getTopCell(x);}
     public Tile getCurrentTurn() { return currentState.get().turn;}
@@ -65,10 +62,6 @@ public class Connect4Board {
             return;
         }
         currentState.setValue(nextState);
-    }
-
-    public void updatePlayer(Observable o, BoardState oldVal, BoardState newVal) {
-        this.currentPlayer.set(players.get(newVal.turn));
     }
 
     public Tile get(Point p) {

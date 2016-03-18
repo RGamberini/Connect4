@@ -10,8 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
+import java.awt.*;
 import java.util.HashMap;
 
 /**

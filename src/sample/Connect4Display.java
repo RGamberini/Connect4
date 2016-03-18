@@ -24,11 +24,11 @@ import java.awt.Point;
  * Created by Rudy Gamberini on 2/25/2016.
  */
 public class Connect4Display extends GridPane {
-    private StackPane[][] cellArray;
+    public StackPane[][] cellArray;
     public Connect4Board model;
     public int width, height;
     @Nullable private ObjectProperty<Point> hoveredCell;
-    public BooleanProperty interactable;
+    public BooleanProperty interactive;
 
     public Connect4Display(Connect4Board model) {
         super();
@@ -45,7 +45,7 @@ public class Connect4Display extends GridPane {
         this.setMaxSize(width, height);
 
         this.hoveredCell = new SimpleObjectProperty<>();
-        this.interactable = new SimpleBooleanProperty(true);
+        this.interactive = new SimpleBooleanProperty(true);
 
 
         /**
@@ -71,7 +71,7 @@ public class Connect4Display extends GridPane {
                 final int _x = x;
                 innerCell.setOnMouseEntered((event) -> {
                     Point topCell = model.getTopCell(_x);
-                    if (topCell.y != -1 && interactable.get())
+                    if (topCell.y != -1 && interactive.get())
                         hoveredCell.setValue(topCell);
                     else hoveredCell.setValue(null);
                 });
@@ -79,27 +79,26 @@ public class Connect4Display extends GridPane {
                     Point topCell = model.getTopCell(_x);
                     if (topCell.y != -1 &&
                             get(hoveredCell.get()) == cellArray[topCell.x][topCell.y] &&
-                            interactable.get()) {
+                            interactive.get()) {
                         hoveredCell.setValue(null);
                     }
                 });
                 innerCell.setOnMouseClicked((event) -> {
-                    if (interactable.get())
+                    if (interactive.get())
                         model.set(model.getTopCell(_x), model.getCurrentTurn());
                     hoveredCell.setValue(null);
                 });
-                interactable.addListener((o, oldVal, newVal) -> {
-                    if (!interactable.get()) innerCell.setCursor(Cursor.DEFAULT);
+                interactive.addListener((o, oldVal, newVal) -> {
+                    if (!interactive.get()) innerCell.setCursor(Cursor.DEFAULT);
                     else  innerCell.setCursor(Cursor.HAND);
                 });
             }
         }
 
         model.currentState.addListener(this::updateState);
+        model.currentState.addListener(this::updatePlayer);
         hoveredCell.addListener(this::showHoveredCell);
-        model.currentPlayer.addListener(this::updatePlayer);
-        updatePlayer(model.currentPlayer, model.currentPlayer.get(), model.currentPlayer.get());
-        interactable.bind(Bindings.not(model.won));
+        interactive.bind(Bindings.not(model.won));
     }
 
     public void updateState(Observable o, BoardState oldVal, BoardState newVal) {
@@ -118,9 +117,10 @@ public class Connect4Display extends GridPane {
             }
     }
 
-    public void updatePlayer(Observable o, Player oldVal, Player newVal) {
-        if (newVal instanceof AI)
-            interactable.set(false);
+    public void updatePlayer(Observable o, BoardState oldVal, BoardState newVal) {
+        if (model.getPlayer(newVal.turn) instanceof AI)
+            interactive.set(false);
+        //System.out.println(newVal.getValue());
     }
 
     private StackPane get(Point p) {

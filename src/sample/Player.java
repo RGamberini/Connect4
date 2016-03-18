@@ -1,14 +1,5 @@
 package sample;
 
-import sample.states.BoardState;
-import sample.tree.RecursiveTree;
-import sample.tree.TreeNode;
-
-import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Created by Nick on 3/9/2016.
  */
