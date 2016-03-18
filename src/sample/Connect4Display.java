@@ -98,7 +98,7 @@ public class Connect4Display extends GridPane {
         model.currentState.addListener(this::updateState);
         model.currentState.addListener(this::updatePlayer);
         hoveredCell.addListener(this::showHoveredCell);
-        interactive.bind(Bindings.not(model.won));
+        //interactive.bind(Bindings.not(model.won));
     }
 
     public void updateState(Observable o, BoardState oldVal, BoardState newVal) {

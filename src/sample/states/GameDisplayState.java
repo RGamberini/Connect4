@@ -8,6 +8,8 @@ import javafx.beans.binding.Bindings;
 import javafx.scene.layout.StackPane;
 import sample.*;
 
+import java.awt.*;
+
 /**
  * Created by Nick on 2/25/2016.
  */

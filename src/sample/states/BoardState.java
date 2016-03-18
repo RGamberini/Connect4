@@ -102,24 +102,50 @@ public class BoardState {
             for (int x = 0; x < state.length; x++) {
                 for (int y = 0; y < state[x].length; y++) {
                     if (state[x][y] != Tile.EMPTY) {
+                        // Keeping track of the free space on both ends of a run allows me to check if a run is winnable
+                        int freeSpace = 0;
                         ArrayList<Point> run = new ArrayList<>();
                         Point origin = new Point(x, y);
                         if (!inARun.contains(origin)) {
+                            // This bool is necessary because I always check the whole 4 tiles for open spaces
+                            boolean continuous = true;
                             for (int r = 1; r <= 3; r++) {
                                 int nextX = x + (r * direction.x);
                                 int nextY = y + (r * direction.y);
                                 if (nextX < state.length && nextX >= 0 && nextY < state[x].length && nextY >= 0) {
                                     Tile nextTile = state[nextX][nextY];
-                                    if (state[x][y] == nextTile) {
+                                    if (state[x][y] == nextTile && continuous) {
                                         Point point = new Point(nextX, nextY);
                                         run.add(point);
-                                    } else break;
+                                    } else if (nextTile == Tile.EMPTY) {
+                                        freeSpace++;
+                                        continuous = false;
+                                    }
+                                    else break;
                                 } else break;
                             }
                         }
                         if (run.size() > 0) {
+                            /**
+                             * This loop checks for whether the run is winnable by checking for free space on the
+                             * opposite (left) end of the run.
+                             */
+                            for (int r = 1; r <= 4 - (run.size() + freeSpace); r++) {
+                                int nextX = x + (r * direction.x * -1);
+                                int nextY = y + (r * direction.y * -1);
+                                if (nextX < state.length && nextX >= 0 && nextY < state[x].length && nextY >= 0) {
+                                    Tile nextTile = state[nextX][nextY];
+                                    if (nextTile == Tile.EMPTY) {
+                                        freeSpace++;
+                                    } else break;
+                                } else break;
+                            }
+                        }
+                        // If and only if the run is winnable will we add it to the list of runs
+                        // We add 1 because the origin is not yet part of the run
+                        if (run.size() > 0 && (run.size() + 1 + freeSpace) >= 4) {
                             run.add(0, origin);
-                            System.out.println(state[x][y] + " has a run of length: " + run.size());
+                            //System.out.println(state[x][y] + " has a winnable run of length: " + run.size());
                             runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
                             for (Point runSegment: run)
                                 inARun.add(runSegment);
@@ -128,7 +154,7 @@ public class BoardState {
                 }
             }
         }
-        System.out.println("--------------------------------------------");
+        //System.out.println("--------------------------------------------");
     }
 
     public ArrayList<Point[]> getRuns(Tile tile) {
@@ -145,12 +171,17 @@ public class BoardState {
         for (Tile player : Connect4Board.turnOrder) {
             for (Point[] run : getRuns(player)) {
                 if (player == turn) {
+                    if (run.length > 3)
+                        return Integer.MAX_VALUE;
                     if (currentTurnLongestRun < run.length) {
                         //System.out.println("Found a run for ME: " + run.length);
                         currentTurnLongestRun = (int) Math.pow(10, run.length);
                         //System.out.println("See I set it: " + currentTurnLongestRun);
                     }
                 } else {
+                    if (run.length > 3) {
+                        return Integer.MIN_VALUE;
+                    }
                     if (otherLongestRun < run.length)
                         otherLongestRun = (int) Math.pow(10, run.length);
                 }
@@ -158,6 +189,18 @@ public class BoardState {
         }
         return currentTurnLongestRun + (otherLongestRun * -1);
     }
+//    public int getValue() {
+//        int currentTurnLongestRun = 0;
+//        int otherLongestRun = 0;
+//        for (Tile player : Connect4Board.turnOrder) {
+//            if (player == turn) currentTurnLongestRun = getRuns(player).stream().mapToInt((p) -> p.length).sum();
+//            else {
+//                final int localMax = getRuns(player).stream().mapToInt((p) -> p.length).sum();
+//                if (localMax > otherLongestRun) otherLongestRun = localMax;
+//            }
+//        }
+//        return currentTurnLongestRun - otherLongestRun;
+//    }
 
     public boolean checkForGameOver() {
         for (Tile key: Connect4Board.turnOrder)
