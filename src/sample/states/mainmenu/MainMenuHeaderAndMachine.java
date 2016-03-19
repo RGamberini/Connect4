@@ -1,7 +1,6 @@
 package sample.states.mainmenu;
 
 import com.jfoenix.controls.JFXToolbar;
-import com.sun.istack.internal.Nullable;
 import javafx.animation.Transition;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
@@ -55,7 +54,7 @@ public class MainMenuHeaderAndMachine extends State implements StateMachine {
         mainStack.maxHeightProperty().bind(Bindings.divide(main._height, 1.3));
         mainStack.getChildren().add(mainVBox);
 
-        this.changeState(new MainMenuOptions(this, headerStack, contentStack));
+        this.changeState(new MainMenu(this, headerStack, contentStack));
     }
 
     @Override

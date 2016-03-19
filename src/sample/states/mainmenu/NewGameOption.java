@@ -17,27 +17,27 @@ import sample.NumberImage;
 /**
  * Created by Nick on 2/26/2016.
  */
-public class NewGameOption extends StartMenuOption {
+public class NewGameOption extends MainMenuOption {
     private IntegerProperty players;
     public NewGameOption(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
         super(main, header, contentStack);
-        headerImage = new ImageView("newgame_HEADER.png");
+        headerImage = new ImageView("mainmenu/newgame/newgame_HEADER.png");
 
         /**
          * Player count picker
          */
-        StackPane playersImage = new StackPane(new ImageView("players.png"));
+        StackPane playersImage = new StackPane(new ImageView("mainmenu/newgame/players.png"));
         playersImage.setAlignment(Pos.CENTER_LEFT);
         players = new SimpleIntegerProperty(0);
 
         NumberImage playersNumber = new NumberImage(0);
         playersNumber.getStyleClass().add("number");
 
-        ImageView carrotUp = new ImageView("carrot_up.png");
+        ImageView carrotUp = new ImageView("numbers/carrot_up.png");
         JFXButton upArrow = new JFXButton("", carrotUp);
         upArrow.getStyleClass().add("carrot");
 
-        ImageView carrotDown = new ImageView("carrot_up.png");
+        ImageView carrotDown = new ImageView("numbers/carrot_up.png");
         carrotDown.setScaleY(-1);
         JFXButton downArrow = new JFXButton("", carrotDown);
         downArrow.getStyleClass().add("carrot");
@@ -54,7 +54,7 @@ public class NewGameOption extends StartMenuOption {
          * Computer count display
          */
 
-        StackPane computersImage = new StackPane(new ImageView("computers.png"));
+        StackPane computersImage = new StackPane(new ImageView("mainmenu/newgame/computers.png"));
         computersImage.setAlignment(Pos.CENTER_LEFT);
         NumberImage computersNumber = new NumberImage(0);
         VBox computersNumberVBox = new VBox(computersNumber);
@@ -75,13 +75,13 @@ public class NewGameOption extends StartMenuOption {
         /**
          * Buttons
          */
-        JFXButton confirm = new JFXButton("", new ImageView("confirm.png"));
+        JFXButton confirm = new JFXButton("", new ImageView("mainmenu/newgame/confirm.png"));
         confirm.setOnMouseClicked((event) -> main.createNewGame(new Connect4Board(playersNumber.number.get())));
         confirm.maxWidthProperty().bind(Bindings.divide(main.mainStack.maxWidthProperty(), 1.4));
         confirm.getStyleClass().add("main-menu-button");
 
-        JFXButton cancel = new JFXButton("", new ImageView("cancel.png"));
-        cancel.setOnMouseClicked((event) -> main.changeState(new MainMenuOptions(main, header, contentStack), true));
+        JFXButton cancel = new JFXButton("", new ImageView("mainmenu/newgame/cancel.png"));
+        cancel.setOnMouseClicked((event) -> main.changeState(new MainMenu(main, header, contentStack), true));
         cancel.maxWidthProperty().bind(Bindings.divide(main.mainStack.maxWidthProperty(), 1.4));
         cancel.getStyleClass().add("main-menu-button");
 

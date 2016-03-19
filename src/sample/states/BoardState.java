@@ -173,15 +173,11 @@ public class BoardState {
                 if (player == turn) {
                     if (run.length > 3)
                         return Integer.MAX_VALUE;
-                    if (currentTurnLongestRun < run.length) {
-                        //System.out.println("Found a run for ME: " + run.length);
+                    if (currentTurnLongestRun < run.length)
                         currentTurnLongestRun = (int) Math.pow(10, run.length);
-                        //System.out.println("See I set it: " + currentTurnLongestRun);
-                    }
                 } else {
-                    if (run.length > 3) {
+                    if (run.length > 3)
                         return Integer.MIN_VALUE;
-                    }
                     if (otherLongestRun < run.length)
                         otherLongestRun = (int) Math.pow(10, run.length);
                 }
@@ -189,18 +185,6 @@ public class BoardState {
         }
         return currentTurnLongestRun + (otherLongestRun * -1);
     }
-//    public int getValue() {
-//        int currentTurnLongestRun = 0;
-//        int otherLongestRun = 0;
-//        for (Tile player : Connect4Board.turnOrder) {
-//            if (player == turn) currentTurnLongestRun = getRuns(player).stream().mapToInt((p) -> p.length).sum();
-//            else {
-//                final int localMax = getRuns(player).stream().mapToInt((p) -> p.length).sum();
-//                if (localMax > otherLongestRun) otherLongestRun = localMax;
-//            }
-//        }
-//        return currentTurnLongestRun - otherLongestRun;
-//    }
 
     public boolean checkForGameOver() {
         for (Tile key: Connect4Board.turnOrder)

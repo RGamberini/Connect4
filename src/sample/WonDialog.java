@@ -15,4 +15,13 @@ public class WonDialog extends Pane {
         tileImageName.put(Tile.PLAYER1, "player1won.png");
         tileImageName.put(Tile.PLAYER2, "player2won.png");
     }
+    public WonDialog() {
+        //this.getStyleClass().add("card");
+        this.getStyleClass().add("won-menu");
+        this.setMinSize(400, 300);
+        this.parentProperty().addListener((o, oldVal, newVal) -> {
+            if (newVal != null)
+                newVal.getStyleClass().add("won-menu");
+        });
+    }
 }

@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
  * Created by Nick on 3/1/2016.
  */
 public class NumberImage extends ImageView {
-    private static final String[] imageURLS = {"zero.png", "one.png", "two.png"};
+    private static final String[] imageURLS = {"numbers/zero.png", "numbers/one.png", "numbers/two.png"};
     public IntegerProperty number;
 
     /**

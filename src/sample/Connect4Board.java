@@ -55,6 +55,7 @@ public class Connect4Board {
             if (nextState.checkForGameOver()) {
                 nextState = new BoardState(nextState, this.currentState.get().turn);
                 won.set(true);
+                System.out.println("WON GAME");
             }
         } catch (InvalidBoardException e) {
             e.printStackTrace();

@@ -9,28 +9,28 @@ import javafx.scene.layout.StackPane;
 /**
  * Created by Nick on 2/26/2016.
  */
-public class MainMenuOptions extends StartMenuOption {
+public class MainMenu extends MainMenuOption {
     private RudeButton[] buttons;
     class RudeButton extends JFXButton {
-        public StartMenuOption nextState;
+        public MainMenuOption nextState;
         public ImageView image;
-        public RudeButton(String text, ImageView image, StartMenuOption nextState) {
+        public RudeButton(String text, ImageView image, MainMenuOption nextState) {
             super(text, image);
             this.nextState = nextState;
             this.getStyleClass().add("main-menu-button");
         }
     }
-    public MainMenuOptions(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
+    public MainMenu(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
         super(main, header, contentStack);
-        headerImage = new ImageView("logo.png");
+        headerImage = new ImageView("mainmenu/logo.png");
 
-        RudeButton newgame = new RudeButton("", new ImageView("newgame.png"), new NewGameOption(main, header, contentStack));
+        RudeButton newgame = new RudeButton("", new ImageView("mainmenu/newgame.png"), new NewGameOption(main, header, contentStack));
 
-        RudeButton loadgame = new RudeButton("", new ImageView("loadgame.png"), new NewGameOption(main, header, contentStack));
+        RudeButton loadgame = new RudeButton("", new ImageView("mainmenu/loadgame.png"), new NewGameOption(main, header, contentStack));
 
-        RudeButton options = new RudeButton("", new ImageView("options.png"), new NewGameOption(main, header, contentStack));
+        RudeButton options = new RudeButton("", new ImageView("mainmenu/options.png"), new NewGameOption(main, header, contentStack));
 
-        RudeButton quit = new RudeButton("", new ImageView("quitgame.png"), null);
+        RudeButton quit = new RudeButton("", new ImageView("mainmenu/quitgame.png"), null);
         buttons = new RudeButton[]{newgame, loadgame, options, quit};
 
         for (RudeButton button : buttons) {

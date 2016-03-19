@@ -25,7 +25,6 @@ public class AI extends Player {
     public class Move {
         public int value;
         public Point space;
-        public BoardState state;
 
         public Move(Point space, int value) {
             this.space = space;

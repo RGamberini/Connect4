@@ -15,7 +15,7 @@ import sample.states.State;
 /**
  * Created by Nick on 2/26/2016.
  */
-public abstract class StartMenuOption extends State {
+public abstract class MainMenuOption extends State {
 //    protected VBox content;
     protected ImageView headerImage;
     protected VBox content;
@@ -24,7 +24,7 @@ public abstract class StartMenuOption extends State {
     protected Transition entrance;
     protected MainMenuHeaderAndMachine main;
 
-    public StartMenuOption(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
+    public MainMenuOption(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
         super(main);
         this.main = main;
 

@@ -38,7 +38,7 @@ public class Connect4Display extends GridPane {
         StackPane.setAlignment(this, Pos.CENTER);
 
         this.cellArray = new StackPane[Connect4Board.COLUMNS][Connect4Board.ROWS];
-        Image tile = new Image("board.png");
+        Image tile = new Image("gamedisplay/board.png");
 
         this.width = (int) tile.getWidth() * Connect4Board.COLUMNS;
         this.height = (int) tile.getHeight() * Connect4Board.ROWS;
@@ -63,7 +63,7 @@ public class Connect4Display extends GridPane {
             for (int y = 0; y < Connect4Board.ROWS; y++) {
                 this.addRow(y);
                 StackPane innerCell = new StackPane();
-                StackPane cell = new StackPane(new ImageView("board.png"), innerCell);
+                StackPane cell = new StackPane(new ImageView("gamedisplay/board.png"), innerCell);
                 this.add(cell, x, y);
                 cellArray[x][y] = innerCell;
 
@@ -98,29 +98,29 @@ public class Connect4Display extends GridPane {
         model.currentState.addListener(this::updateState);
         model.currentState.addListener(this::updatePlayer);
         hoveredCell.addListener(this::showHoveredCell);
-        //interactive.bind(Bindings.not(model.won));
     }
 
     public void updateState(Observable o, BoardState oldVal, BoardState newVal) {
-            Tile[][] oldState = oldVal.getState();
-            Tile[][] newState = newVal.getState();
-            for (int x = 0; x < newState.length; x++) {
-                for (int y = 0; y < newState[x].length; y++) {
-                    if (newState[x][y] != Tile.EMPTY) {
-                        cellArray[x][y].getChildren().clear();
-                        ImageView chip = getChip(newState[x][y]);
-                        cellArray[x][y].getChildren().add(chip);
-                        if (oldState[x][y] == Tile.EMPTY)
-                            Animations.sweepInDown(chip, height).play();
-                    }
+        Tile[][] oldState = oldVal.getState();
+        Tile[][] newState = newVal.getState();
+        for (int x = 0; x < newState.length; x++) {
+            for (int y = 0; y < newState[x].length; y++) {
+                if (newState[x][y] != Tile.EMPTY) {
+                    cellArray[x][y].getChildren().clear();
+                    ImageView chip = getChip(newState[x][y]);
+                    cellArray[x][y].getChildren().add(chip);
+                    if (oldState[x][y] == Tile.EMPTY)
+                        Animations.sweepInDown(chip, height).play();
                 }
             }
+        }
+        if(newVal.checkForGameOver())
+            interactive.set(false);
     }
 
     public void updatePlayer(Observable o, BoardState oldVal, BoardState newVal) {
         if (model.getPlayer(newVal.turn) instanceof AI)
             interactive.set(false);
-        //System.out.println(newVal.getValue());
     }
 
     private StackPane get(Point p) {
@@ -139,7 +139,7 @@ public class Connect4Display extends GridPane {
     }
 
     public static ImageView getChip(Tile player) {
-        ImageView chip = new ImageView("chip.png");
+        ImageView chip = new ImageView("gamedisplay/chip.png");
 
         /**
          * Same deal

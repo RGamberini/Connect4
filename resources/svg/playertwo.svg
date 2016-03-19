@@ -16,9 +16,9 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="playertwo.svg"
-   inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\playerone.png"
-   inkscape:export-xdpi="18.574503"
-   inkscape:export-ydpi="18.574503">
+   inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\gamedisplay\playertwo.png"
+   inkscape:export-xdpi="26.700848"
+   inkscape:export-ydpi="26.700848">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -27,15 +27,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="192.63422"
+     inkscape:cx="-234.50864"
      inkscape:cy="42.243229"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-text-baseline="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1058"
-     inkscape:window-x="1912"
+     inkscape:window-height="1018"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      showguides="true"
@@ -66,7 +66,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
