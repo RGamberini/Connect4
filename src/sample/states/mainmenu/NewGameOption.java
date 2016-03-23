@@ -19,7 +19,7 @@ import sample.NumberImage;
  */
 public class NewGameOption extends MainMenuOption {
     private IntegerProperty players;
-    public NewGameOption(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
+    public NewGameOption(MainMenu main, StackPane header, StackPane contentStack) {
         super(main, header, contentStack);
         headerImage = new ImageView("mainmenu/newgame/newgame_HEADER.png");
 
@@ -47,7 +47,7 @@ public class NewGameOption extends MainMenuOption {
         playersNumberVBox.getStyleClass().add("number");
         HBox playersHBox = new HBox(playersImage, playersNumberVBox);
         HBox.setHgrow(playersImage, Priority.ALWAYS);
-        playersHBox.maxWidthProperty().bind(Bindings.divide(main.mainStack.maxWidthProperty(), 1.4));
+        playersHBox.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
         playersHBox.setAlignment(Pos.CENTER);
 
         /**
@@ -60,7 +60,7 @@ public class NewGameOption extends MainMenuOption {
         VBox computersNumberVBox = new VBox(computersNumber);
         HBox computerHBox = new HBox(computersImage, computersNumberVBox);
         HBox.setHgrow(computersImage, Priority.ALWAYS);
-        computerHBox.maxWidthProperty().bind(Bindings.divide(main.mainStack.maxWidthProperty(), 1.4));
+        computerHBox.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
         computerHBox.setAlignment(Pos.CENTER);
         computersNumberVBox.prefWidthProperty().bind(playersNumberVBox.widthProperty());
         computersNumberVBox.setAlignment(Pos.CENTER);
@@ -77,12 +77,12 @@ public class NewGameOption extends MainMenuOption {
          */
         JFXButton confirm = new JFXButton("", new ImageView("mainmenu/newgame/confirm.png"));
         confirm.setOnMouseClicked((event) -> main.createNewGame(new Connect4Board(playersNumber.number.get())));
-        confirm.maxWidthProperty().bind(Bindings.divide(main.mainStack.maxWidthProperty(), 1.4));
+        confirm.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
         confirm.getStyleClass().add("main-menu-button");
 
         JFXButton cancel = new JFXButton("", new ImageView("mainmenu/newgame/cancel.png"));
-        cancel.setOnMouseClicked((event) -> main.changeState(new MainMenu(main, header, contentStack), true));
-        cancel.maxWidthProperty().bind(Bindings.divide(main.mainStack.maxWidthProperty(), 1.4));
+        cancel.setOnMouseClicked((event) -> main.changeState(new MainOptions(main, header, contentStack), true));
+        cancel.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
         cancel.getStyleClass().add("main-menu-button");
 
         VBox buttons = new VBox(cancel, confirm);

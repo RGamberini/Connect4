@@ -30,7 +30,7 @@ public class GameDisplayState extends State {
         display = new Connect4Display(model);
         mainStack.getChildren().add(new DisplayControls(display));
 
-        wonDialog = new JFXDialog(mainStack, new WonDialog(), JFXDialog.DialogTransition.CENTER);
+        wonDialog = new JFXDialog(mainStack, new WonDialog(main, model), JFXDialog.DialogTransition.CENTER);
         model.won.addListener(this::gameWon);
         main.getScene().setOnKeyPressed((event) -> {
             if(event.getCode() == KeyCode.A) {
@@ -41,7 +41,7 @@ public class GameDisplayState extends State {
 
     @Override
     public void enter(Transition exitTransition) {
-        Node[] toDelete = main.getChildren().toArray(new Node[0]);
+        Node[] toDelete = main.getChildren().toArray(new Node[main.getChildren().size()]);
         mainStack.prefHeightProperty().bind(main._height);
         mainStack.maxWidthProperty().bind(Bindings.add(
                 Bindings.divide(main._width, 10),
@@ -63,8 +63,7 @@ public class GameDisplayState extends State {
 
     @Override
     public Transition exit() {
-        wonDialog.close();
-        return null;
+        return Animations.sweepOutDown(this.mainStack);
     }
 
     @Override
@@ -73,9 +72,6 @@ public class GameDisplayState extends State {
     }
 
     public void gameWon(Observable o, boolean oldVal, boolean newVal) {
-        if(newVal) {
-            System.out.println("TRIGGERED");
-            wonDialog.show();
-        }
+        if(newVal) wonDialog.show();
     }
 }

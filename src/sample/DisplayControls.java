@@ -32,6 +32,7 @@ public class DisplayControls extends StackPane {
         VBox tempVBox = new VBox(toolbar);
         borderPane.setTop(tempVBox);
         turnImageButtons = new JFXButton[Connect4Board.turnOrder.size()];
+
         for (int i = 0; i < Connect4Board.turnOrder.size(); i++) {
             Player player = display.model.getPlayer(Connect4Board.turnOrder.get(i));
             ImageView turnImage;
@@ -42,8 +43,8 @@ public class DisplayControls extends StackPane {
             BorderPane.setAlignment(turnImageButton, Pos.CENTER);
             turnImageButton.setMouseTransparent(true);
             turnImageButtons[i] = turnImageButton;
-
         }
+
         JFXButton playerOne = turnImageButtons[0], playerTwo = turnImageButtons[1];
         BorderPane.setMargin(playerOne, new Insets(0, 0, 0, 16));
         toolbar.setLeft(playerOne);
@@ -58,9 +59,9 @@ public class DisplayControls extends StackPane {
         display.model.currentState.addListener((o, oldVal, newVal) -> {
             currentTurn.forEach(((tile, imageView) -> {
                 if (tile == newVal.turn)
-                    currentTurn.get(tile).setDisable(false);
+                    imageView.setDisable(false);
                 else
-                    currentTurn.get(tile).setDisable(true);
+                    imageView.setDisable(true);
             }));
         });
 

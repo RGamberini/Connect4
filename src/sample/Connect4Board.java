@@ -45,17 +45,23 @@ public class Connect4Board {
     public Point getTopCell(int x) { return currentState.get().getTopCell(x);}
     public Tile getCurrentTurn() { return currentState.get().turn;}
     public Tile getNextTurn() { return this.currentState.get().getNextTurn();}
-    public Player getPlayer(Tile tile) { return  this.players.get(tile);}
+    public Player getPlayer(Tile tile) { return this.players.get(tile);}
+    public Map<Tile, Player> getPlayers() { return players;}
 
     public void set(Point p, Tile owner) {
+        // Don't update won before changing the state to avoid breaking listeners on won
+        boolean _won = false;
         BoardState nextState;
         try {
             nextState = new BoardState(currentState.get(), getNextTurn());
             nextState.set(p, owner);
             if (nextState.checkForGameOver()) {
                 nextState = new BoardState(nextState, this.currentState.get().turn);
-                won.set(true);
+                _won = true;
                 System.out.println("WON GAME");
+            } else if(nextState.getAllMoves().length < 1) {
+                nextState = new BoardState(nextState, Tile.EMPTY);
+                _won = true;
             }
         } catch (InvalidBoardException e) {
             e.printStackTrace();
@@ -63,6 +69,7 @@ public class Connect4Board {
             return;
         }
         currentState.setValue(nextState);
+        if (_won) won.set(true);
     }
 
     public Tile get(Point p) {

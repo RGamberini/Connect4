@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import sample.Animations;
+import sample.Main;
 import sample.states.State;
 
 /**
@@ -22,9 +23,9 @@ public abstract class MainMenuOption extends State {
     private StackPane contentStack;
     protected StackPane header;
     protected Transition entrance;
-    protected MainMenuHeaderAndMachine main;
+    protected MainMenu main;
 
-    public MainMenuOption(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
+    public MainMenuOption(MainMenu main, StackPane header, StackPane contentStack) {
         super(main);
         this.main = main;
 
@@ -35,6 +36,9 @@ public abstract class MainMenuOption extends State {
         this.contentStack = contentStack;
         content = new VBox();
         content.setAlignment(Pos.TOP_CENTER);
+
+        content.spacingProperty().bind(Bindings.multiply(.05, this.main.maxHeightProperty()));
+        content.prefHeightProperty().bind(this.main.maxHeightProperty());
     }
 
     @Override
@@ -45,8 +49,6 @@ public abstract class MainMenuOption extends State {
 
     @Override
     public void enter(@Nullable Transition exitTransition, boolean backwards) {
-        content.spacingProperty().bind(Bindings.multiply(.05, this.main.mainStack.maxHeightProperty()));
-        content.prefHeightProperty().bind(this.main.mainStack.maxHeightProperty());
         Node[] contentToDelete = contentStack.getChildren().toArray(new Node[0]);
         Node[] headerImageToDelete = header.getChildren().toArray(new Node[0]);
 

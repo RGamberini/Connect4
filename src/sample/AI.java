@@ -1,25 +1,47 @@
 package sample;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.concurrent.Task;
 import sample.states.BoardState;
 import sample.states.State;
 
 import java.awt.*;
+import java.util.Timer;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by Rudy Gamberini on 3/15/2016.
  */
 public class AI extends Player {
+//    ObjectProperty<Point> nextMove;
     public AI(Connect4Board board, Tile tile) {
         super(board, tile);
         board.currentState.addListener((o, oldVal, newVal) -> {
             AITurn(newVal);
         });
         AITurn(board.currentState.get());
+//        nextMove = new SimpleObjectProperty<>();
+//        nextMove.addListener((o, oldVal, newVal) -> board.set(newVal, tile));
     }
 
-    public void AITurn(BoardState newVal) {
-        if (newVal.turn == tile && !board.won.get())
-            board.set(board.getTopCell(evaluateBestMove(newVal, 4).x), tile);
+    private void AITurn(BoardState newVal) {
+        if (newVal.turn == tile && !newVal.checkForGameOver()) {
+            Task<Point> heuristic = new Task<Point>() {
+                @Override
+                protected Point call() throws Exception {
+                    long start = System.currentTimeMillis();
+                    Point r =  evaluateBestMove(newVal, 6);
+                    long deltaTime = System.currentTimeMillis() - start;
+                    if (deltaTime < 500)
+                        Thread.sleep(500 - deltaTime);
+                    return r;
+                }
+            };
+            heuristic.setOnSucceeded((event) -> board.set(heuristic.getValue(), tile));
+            new Thread(heuristic).start();
+        }
     }
 
     public class Move {
@@ -32,7 +54,7 @@ public class AI extends Player {
         }
     }
 
-    public Point evaluateBestMove(BoardState state, int depth) {
+    private Point evaluateBestMove(BoardState state, int depth) {
         try {
             return miniMax(state, null, depth).space;
         } catch (InvalidBoardException e) {
@@ -40,27 +62,6 @@ public class AI extends Player {
         }
         return null;
     }
-
-//    public Point evaluateBestMove(BoardState state, int depth) {
-//        Point bestMove = state.getTopCell(3);
-//        int maxMin = 0;
-//        for (Point point: state.getAllMoves()) {
-//            BoardState newState = null;
-//            try {
-//                newState = new BoardState(state, state.getNextTurn());
-//            } catch (InvalidBoardException e) {
-//                e.printStackTrace();
-//            }
-//            assert newState != null;
-//            newState.set(point, tile);
-//                int newValue = evaluateBestBoardState(newState);
-//                if (newValue > maxMin) {
-//                    bestMove = point;
-//                    maxMin = newValue;
-//                }
-//        }
-//        //System.out.println("(" + bestMove.x + ", " + bestMove.y + ") has a value of " + bestValue);
-//    }
 
     public static Move max(Move o1, Move o2) {
         if (o1.value >= o2.value) return o1;

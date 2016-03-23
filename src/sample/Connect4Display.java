@@ -84,7 +84,7 @@ public class Connect4Display extends GridPane {
                     }
                 });
                 innerCell.setOnMouseClicked((event) -> {
-                    if (interactive.get())
+                    if (interactive.get() && model.getTopCell(_x).y != -1)
                         model.set(model.getTopCell(_x), model.getCurrentTurn());
                     hoveredCell.setValue(null);
                 });
@@ -97,6 +97,9 @@ public class Connect4Display extends GridPane {
 
         model.currentState.addListener(this::updateState);
         model.currentState.addListener(this::updatePlayer);
+        model.won.addListener((o, oldVal, newVal) -> {
+            if (newVal) interactive.set(false);
+        });
         hoveredCell.addListener(this::showHoveredCell);
     }
 
@@ -114,13 +117,11 @@ public class Connect4Display extends GridPane {
                 }
             }
         }
-        if(newVal.checkForGameOver())
-            interactive.set(false);
     }
 
     public void updatePlayer(Observable o, BoardState oldVal, BoardState newVal) {
-        if (model.getPlayer(newVal.turn) instanceof AI)
-            interactive.set(false);
+        if (model.getPlayer(newVal.turn) instanceof AI) interactive.set(false);
+        else interactive.set(true);
     }
 
     private StackPane get(Point p) {

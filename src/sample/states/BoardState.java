@@ -21,6 +21,13 @@ public class BoardState {
             for (int y = 0; y < state[x].length; y++)
                 state[x][y] = Tile.EMPTY;
         //Runs are empty because empty board
+        for(Tile key: Connect4Board.turnOrder) {
+            if (runs.get(key) != null)
+                runs.get(key).clear();
+            else
+                runs.put(key, new ArrayList<>());
+        }
+
     }
 
     public BoardState(BoardState oldState, Tile turn) throws InvalidBoardException {
@@ -183,7 +190,7 @@ public class BoardState {
                 }
             }
         }
-        return currentTurnLongestRun + (otherLongestRun * -1);
+        return currentTurnLongestRun;// + (otherLongestRun * -1);
     }
 
     public boolean checkForGameOver() {

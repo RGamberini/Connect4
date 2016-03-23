@@ -1,47 +1,51 @@
 package sample.states.mainmenu;
 
-import com.jfoenix.controls.JFXButton;
-import javafx.application.Platform;
+import javafx.animation.Transition;
 import javafx.beans.binding.Bindings;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
+import sample.Connect4Board;
+import sample.Menu;
+import sample.StateDisplay;
+import sample.states.GameDisplayState;
+import sample.states.State;
+import sample.states.StateMachine;
 
 /**
- * Created by Nick on 2/26/2016.
+ * Created by Nick on 3/22/2016.
  */
-public class MainMenu extends MainMenuOption {
-    private RudeButton[] buttons;
-    class RudeButton extends JFXButton {
-        public MainMenuOption nextState;
-        public ImageView image;
-        public RudeButton(String text, ImageView image, MainMenuOption nextState) {
-            super(text, image);
-            this.nextState = nextState;
-            this.getStyleClass().add("main-menu-button");
-        }
+public class MainMenu extends Menu implements StateMachine {
+    State currentState;
+    StateDisplay main;
+    public MainMenu(StateDisplay main) {
+        super();
+        this.main = main;
+
+        headerBG.prefWidthProperty().bind(main._width);
+        headerBG.minHeightProperty().bind(Bindings.multiply(.20, main._height));
+
+        this.maxWidthProperty().bind(Bindings.divide(main._width, 1.8));
+        this.maxHeightProperty().bind(Bindings.divide(main._height, 1.3));
+        this.changeState(new MainOptions(this, headerStack, contentStack));
     }
-    public MainMenu(MainMenuHeaderAndMachine main, StackPane header, StackPane contentStack) {
-        super(main, header, contentStack);
-        headerImage = new ImageView("mainmenu/logo.png");
 
-        RudeButton newgame = new RudeButton("", new ImageView("mainmenu/newgame.png"), new NewGameOption(main, header, contentStack));
+    @Override
+    public void changeState(State newState) {
+        Transition exitTransition = null;
+        if (currentState != null)
+            exitTransition = currentState.exit();
+        currentState = newState;
+        currentState.enter(exitTransition);
+    }
 
-        RudeButton loadgame = new RudeButton("", new ImageView("mainmenu/loadgame.png"), new NewGameOption(main, header, contentStack));
+    @Override
+    public void changeState(State newState, boolean backwards) {
+        Transition exitTransition = null;
+        if (currentState != null)
+            exitTransition = currentState.exit(backwards);
+        currentState = newState;
+        currentState.enter(exitTransition, backwards);
+    }
 
-        RudeButton options = new RudeButton("", new ImageView("mainmenu/options.png"), new NewGameOption(main, header, contentStack));
-
-        RudeButton quit = new RudeButton("", new ImageView("mainmenu/quitgame.png"), null);
-        buttons = new RudeButton[]{newgame, loadgame, options, quit};
-
-        for (RudeButton button : buttons) {
-            button.prefWidthProperty().bind(Bindings.multiply(.75, main.mainStack.maxWidthProperty()));
-            button.setOnMouseClicked((event) -> {
-                if (button.nextState != null)
-                    main.changeState(button.nextState);
-            });
-        }
-        quit.setOnMouseClicked((event) -> Platform.exit());
-
-        content.getChildren().addAll(buttons);
+    public void createNewGame(Connect4Board board) {
+        main.changeState(new GameDisplayState(main, board));
     }
 }

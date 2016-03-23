@@ -4,7 +4,7 @@ import javafx.animation.Transition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.StackPane;
-import sample.states.mainmenu.MainMenuHeaderAndMachine;
+import sample.states.mainmenu.MainMenuState;
 import sample.states.State;
 import sample.states.StateMachine;
 
@@ -20,7 +20,7 @@ public class StateDisplay extends StackPane implements StateMachine {
         this.getStyleClass().add("state-display");
 
         //State state = new GameDisplayState(this, new Connect4Board());
-        State state = new MainMenuHeaderAndMachine(this);
+        State state = new MainMenuState(this);
         changeState(state);
     }
 
