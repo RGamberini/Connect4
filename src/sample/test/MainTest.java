@@ -19,26 +19,26 @@ public class MainTest {
         System.out.println("Should be 7 " + horizontalwin.length + " Should be 6 " + horizontalwin[0].length);
 
         System.out.print("Testing for horizontal win: ");
-        if (new BoardState(horizontalwin).checkForGameOver())
+        if (new BoardState(horizontalwin, Tile.PLAYER1).checkForGameOver())
             System.out.println("Passed!");
         else
             System.out.println("Failed!");
 
         System.out.print("Testing for vertical win: ");
-        if (new BoardState(verticalwin).checkForGameOver())
+        if (new BoardState(verticalwin, Tile.PLAYER1).checkForGameOver())
             System.out.println("Passed!");
         else
             System.out.println("Failed!");
 
         System.out.print("Testing for diagonal win: ");
-        if (new BoardState(diagonalwin1).checkForGameOver() && new BoardState(diagonalwin2).checkForGameOver())
+        if (new BoardState(diagonalwin1, Tile.PLAYER1).checkForGameOver() && new BoardState(diagonalwin2, Tile.PLAYER1).checkForGameOver())
             System.out.println("Passed!");
         else
             System.out.println("Failed!");
 
         System.out.print("Testing for floating tile error: ");
         try {
-            new BoardState(floating);
+            new BoardState(floating, Tile.PLAYER1);
             System.out.println("Failed!");
         } catch (InvalidBoardException e) {
             System.out.println("Passed!");

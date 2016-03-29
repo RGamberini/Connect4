@@ -37,9 +37,10 @@ public class BoardState {
         this.turn = turn;
     }
 
-    public BoardState(Tile[][] initialState) throws InvalidBoardException {
+    public BoardState(Tile[][] initialState, Tile turn) throws InvalidBoardException {
         if (isValidBoard(initialState))
             this.state = initialState;
+        this.turn = turn;
         updateRuns();
     }
 

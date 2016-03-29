@@ -6,8 +6,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import sample.states.State;
 import sample.states.mainmenu.MainMenuState;
+
+import javax.swing.plaf.FileChooserUI;
+import java.io.File;
 
 /**
  * Created by Nick on 3/28/2016.
@@ -48,6 +52,10 @@ public class SettingsDialog extends Menu {
         saveGame.getStyleClass().add("main-menu-button");
         content.getChildren().add(saveGame);
 
+        FileChooser saveFileChooser = new FileChooser();
+        saveFileChooser.setInitialDirectory(new File("saves"));
+        saveFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
+
         JFXButton mainMenu = new JFXButton("", new ImageView("gamedisplay/wonmenu/" + "mainmenu.png"));
         mainMenu.prefWidthProperty().bind(Bindings.multiply(.75, this.maxWidthProperty()));
         mainMenu.getStyleClass().add("main-menu-button");
@@ -56,5 +64,9 @@ public class SettingsDialog extends Menu {
         contentStack.getChildren().add(content);
 
         mainMenu.setOnMouseClicked((event) -> main.changeState(new MainMenuState(main)));
+        saveGame.setOnMouseClicked((event) -> {
+            File saveFile = saveFileChooser.showSaveDialog(this.getScene().getWindow());
+            if (saveFile != null) GameSaver.saveGame(display.model.currentState.get(), saveFile);
+        });
     }
 }
