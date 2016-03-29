@@ -178,8 +178,6 @@ public class BoardState {
         for (Tile player : Connect4Board.turnOrder) {
             for (Point[] run : getRuns(player)) {
                 if (player == turn) {
-                    if (run.length > 3)
-                        return Integer.MAX_VALUE;
                     if (currentTurnLongestRun < run.length)
                         currentTurnLongestRun = (int) Math.pow(10, run.length);
                 } else {
@@ -190,7 +188,7 @@ public class BoardState {
                 }
             }
         }
-        return currentTurnLongestRun;// + (otherLongestRun * -1);
+        return currentTurnLongestRun + (otherLongestRun * -1);
     }
 
     public boolean checkForGameOver() {
@@ -227,5 +225,10 @@ public class BoardState {
             }
         }
         return deepCopy;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(state);
     }
 }

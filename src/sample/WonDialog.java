@@ -3,15 +3,13 @@ package sample;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.StringBinding;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import sample.AI.AI;
 import sample.states.GameDisplayState;
 import sample.states.mainmenu.MainMenuState;
 
@@ -50,7 +48,7 @@ public class WonDialog extends Menu {
         headerBG.prefWidthProperty().bind(main._width);
         headerBG.minHeightProperty().bind(Bindings.multiply(.20, main._height));
 
-        this.maxWidthProperty().bind(Bindings.divide(main._width, 2.13));
+        this.maxWidthProperty().bind(Bindings.divide(main._width, 1.75));
         this.maxHeightProperty().bind(Bindings.divide(main._height, 1.3));
 
         this.model = model;

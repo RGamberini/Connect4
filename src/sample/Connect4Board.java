@@ -1,12 +1,10 @@
 package sample;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.css.SimpleStyleableObjectProperty;
+import sample.AI.AI;
 import sample.states.BoardState;
 
 import java.awt.*;
@@ -37,8 +35,7 @@ public class Connect4Board {
             Player player;
             if (i < players)
                 player = new Player(this, tile);
-            else
-                player = new AI(this, tile);
+            else player = new AI(this, tile);
             this.players.put(tile, player);
         }
     }

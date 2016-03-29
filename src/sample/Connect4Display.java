@@ -2,11 +2,7 @@ package sample;
 
 import com.sun.istack.internal.Nullable;
 import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.effect.ColorAdjust;
@@ -16,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import sample.AI.AI;
 import sample.states.BoardState;
 
 import java.awt.Point;
@@ -24,9 +21,9 @@ import java.awt.Point;
  * Created by Rudy Gamberini on 2/25/2016.
  */
 public class Connect4Display extends GridPane {
-    public StackPane[][] cellArray;
+    private StackPane[][] cellArray;
     public Connect4Board model;
-    public int width, height;
+    public DoubleProperty width, height;
     @Nullable private ObjectProperty<Point> hoveredCell;
     public BooleanProperty interactive;
 
@@ -40,9 +37,10 @@ public class Connect4Display extends GridPane {
         this.cellArray = new StackPane[Connect4Board.COLUMNS][Connect4Board.ROWS];
         Image tile = new Image("gamedisplay/board.png");
 
-        this.width = (int) tile.getWidth() * Connect4Board.COLUMNS;
-        this.height = (int) tile.getHeight() * Connect4Board.ROWS;
-        this.setMaxSize(width, height);
+        this.width = new SimpleDoubleProperty(tile.getWidth() * Connect4Board.COLUMNS);
+        this.height = new SimpleDoubleProperty(tile.getHeight() * Connect4Board.ROWS);
+        this.maxWidthProperty().bind(width);
+        this.maxHeightProperty().bind(height);
 
         this.hoveredCell = new SimpleObjectProperty<>();
         this.interactive = new SimpleBooleanProperty(true);
@@ -113,7 +111,7 @@ public class Connect4Display extends GridPane {
                     ImageView chip = getChip(newState[x][y]);
                     cellArray[x][y].getChildren().add(chip);
                     if (oldState[x][y] == Tile.EMPTY)
-                        Animations.sweepInDown(chip, height).play();
+                        Animations.sweepInDown(chip, height.get()).play();
                 }
             }
         }
@@ -124,7 +122,7 @@ public class Connect4Display extends GridPane {
         else interactive.set(true);
     }
 
-    private StackPane get(Point p) {
+    public StackPane get(Point p) {
         if (p != null)
             return cellArray[p.x][p.y];
         else

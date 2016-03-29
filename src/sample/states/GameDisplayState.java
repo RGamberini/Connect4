@@ -28,15 +28,10 @@ public class GameDisplayState extends State {
         mainStack = new StackPane();
         mainStack.getStyleClass().add("gamedisplay-vbox");
         display = new Connect4Display(model);
-        mainStack.getChildren().add(new DisplayControls(display));
+        mainStack.getChildren().add(new DisplayControls(display, new SettingsDialog(main, display)));
 
         wonDialog = new JFXDialog(mainStack, new WonDialog(main, model), JFXDialog.DialogTransition.CENTER);
         model.won.addListener(this::gameWon);
-        main.getScene().setOnKeyPressed((event) -> {
-            if(event.getCode() == KeyCode.A) {
-                model.won.set(true);
-            }
-        });
     }
 
     @Override

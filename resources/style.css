@@ -124,6 +124,16 @@ JFXButton MaterialIconView {
     -fx-background-color: #607D8B;
 }
 
+.carrot {
+    -fx-cursor: hand;
+}
+
+.icon-button {
+    -fx-background-radius: 180px;
+    -fx-background-color: #607D8B;
+    -fx-cursor: hand;
+}
+
 .carrot .jfx-rippler {
     -fx-rippler-fill: WHITE;
 }

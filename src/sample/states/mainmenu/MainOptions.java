@@ -26,7 +26,7 @@ public class MainOptions extends MainMenuOption {
 
         RudeButton newgame = new RudeButton("", new ImageView("mainmenu/newgame.png"), new NewGameOption(main, header, contentStack));
 
-        RudeButton loadgame = new RudeButton("", new ImageView("mainmenu/loadgame.png"), new NewGameOption(main, header, contentStack));
+        RudeButton loadgame = new RudeButton("", new ImageView("mainmenu/loadgame.png"), new LoadGameOption(main, header, contentStack));
 
         RudeButton options = new RudeButton("", new ImageView("mainmenu/options.png"), new NewGameOption(main, header, contentStack));
 
