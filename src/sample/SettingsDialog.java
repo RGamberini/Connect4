@@ -53,7 +53,9 @@ public class SettingsDialog extends Menu {
         content.getChildren().add(saveGame);
 
         FileChooser saveFileChooser = new FileChooser();
-        saveFileChooser.setInitialDirectory(new File("saves"));
+        File saveFolder = new File("saves");
+        saveFolder.mkdir();
+        saveFileChooser.setInitialDirectory(saveFolder);
         saveFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
 
         JFXButton mainMenu = new JFXButton("", new ImageView("gamedisplay/wonmenu/" + "mainmenu.png"));
@@ -66,7 +68,7 @@ public class SettingsDialog extends Menu {
         mainMenu.setOnMouseClicked((event) -> main.changeState(new MainMenuState(main)));
         saveGame.setOnMouseClicked((event) -> {
             File saveFile = saveFileChooser.showSaveDialog(this.getScene().getWindow());
-            if (saveFile != null) GameSaver.saveGame(display.model.currentState.get(), saveFile);
+            if (saveFile != null) GameSaver.saveGame(display.model, saveFile);
         });
     }
 }
