@@ -55,4 +55,25 @@ public class Animations {
         sweepIn.setCycleCount(1);
         return sweepIn;
     }
+
+    public static ScaleTransition enlarge(Node node) {
+        ScaleTransition scale = new ScaleTransition(Duration.millis(700), node);
+
+        scale.setToX(1.2);
+        scale.setToY(1.2);
+        scale.setInterpolator(materialInterp);
+        scale.setCycleCount(1);
+
+        return scale;
+    }
+
+    public static ScaleTransition shrinkToNormal(Node node) {
+        ScaleTransition scale = new ScaleTransition(Duration.millis(700), node);
+
+        scale.setToX(1);
+        scale.setToY(1);
+        scale.setInterpolator(materialInterp);
+        scale.setCycleCount(1);
+        return scale;
+    }
 }

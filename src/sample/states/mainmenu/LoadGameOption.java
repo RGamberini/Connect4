@@ -93,6 +93,7 @@ public class LoadGameOption extends MainMenuOption {
                 WritableImage preview = display.snapshot(null, null);
                 main.main.getChildren().remove(display);
                 ImageView previewImage = new ImageView(preview);
+                previewImage.setTranslateY(-.025 * main.getMaxHeight());
                 previewImage.setSmooth(true);
                 previewImage.setPreserveRatio(false);
                 previewImage.setFitWidth(main.getWidth() * .3);
