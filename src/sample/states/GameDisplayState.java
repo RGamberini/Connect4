@@ -14,13 +14,13 @@ import sample.*;
 import java.awt.*;
 
 /**
- * Created by Nick on 2/25/2016.
+ * The state where the game is playing this state composites the display controls, gridpane and winning and settings dialogs.
  */
 public class GameDisplayState extends State {
-    private Connect4Display display;
-    private StackPane mainStack;
-    private JFXDialog wonDialog;
-    protected StateDisplay main;
+    private final Connect4Display display;
+    private final StackPane mainStack;
+    private final JFXDialog wonDialog;
+    protected final StateDisplay main;
 
     public GameDisplayState(StateDisplay main, Connect4Board model) {
         super(main);

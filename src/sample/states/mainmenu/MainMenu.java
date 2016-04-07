@@ -10,11 +10,12 @@ import sample.states.State;
 import sample.states.StateMachine;
 
 /**
- * Created by Nick on 3/22/2016.
+ * Kind of a funky class this represents the MainMenu with nothing in it, it's also a StateMachine to make each
+ * option more encapsulated.
  */
 public class MainMenu extends Menu implements StateMachine {
     State currentState;
-    StateDisplay main;
+    final StateDisplay main;
     public MainMenu(StateDisplay main) {
         super();
         this.main = main;

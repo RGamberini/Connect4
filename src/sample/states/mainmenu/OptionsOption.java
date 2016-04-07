@@ -20,11 +20,11 @@ import sample.Tile;
 import java.util.HashMap;
 
 /**
- * Created by Nick on 4/2/2016.
+ * A poorly named class that is the 'Options' menu inside the Main Menu.
  */
 public class OptionsOption extends MainMenuOption {
-    private ScrollPane scrollPane;
-    private VBox scrollContent;
+    private final ScrollPane scrollPane;
+    private final VBox scrollContent;
 
     public OptionsOption(MainMenu main, StackPane header, StackPane contentStack) {
         super(main, header, contentStack);
@@ -62,16 +62,6 @@ public class OptionsOption extends MainMenuOption {
         VBox.setMargin(buttons, new Insets(0, 0, 24, 0));
         buttons.setAlignment(Pos.BOTTOM_CENTER);
         content.getChildren().add(buttons);
-    }
-
-    @Override
-    public void enter(@Nullable Transition exitTransition) {
-        super.enter(exitTransition);
-    }
-
-    @Override
-    public void enter(@Nullable Transition exitTransition, boolean backwards) {
-        super.enter(exitTransition, backwards);
     }
 
     public void debug() {

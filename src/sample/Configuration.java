@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Nick on 3/3/2016.
+ * Static Configuration class.
  */
 public class Configuration {
-    public static Map<Tile, ObjectProperty<Color>> playerColor = new HashMap<>(2);
+    public static final Map<Tile, ObjectProperty<Color>> playerColor = new HashMap<>(2);
     static {
         playerColor.put(Tile.PLAYER1, new SimpleObjectProperty<>(Color.valueOf("D32F2F")));
         playerColor.put(Tile.PLAYER2, new SimpleObjectProperty<>(Color.valueOf("FFEB3B")));

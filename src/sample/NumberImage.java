@@ -7,11 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * Created by Nick on 3/1/2016.
+ * A nice looking number from an image.
  */
 public class NumberImage extends ImageView {
     private static final String[] imageURLS = {"numbers/zero.png", "numbers/one.png", "numbers/two.png"};
-    public IntegerProperty number;
+    public final IntegerProperty number;
 
     /**
      * @param start An int between 0-2

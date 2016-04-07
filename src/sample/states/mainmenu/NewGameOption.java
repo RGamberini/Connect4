@@ -15,10 +15,10 @@ import sample.Connect4Board;
 import sample.NumberImage;
 
 /**
- * Created by Nick on 2/26/2016.
+ * A state of the Main Menu for creating a new game.
  */
 public class NewGameOption extends MainMenuOption {
-    private IntegerProperty players;
+
     public NewGameOption(MainMenu main, StackPane header, StackPane contentStack) {
         super(main, header, contentStack);
         headerImage = new ImageView("mainmenu/newgame/newgame_HEADER.png");
@@ -28,7 +28,6 @@ public class NewGameOption extends MainMenuOption {
          */
         StackPane playersImage = new StackPane(new ImageView("mainmenu/newgame/players.png"));
         playersImage.setAlignment(Pos.CENTER_LEFT);
-        players = new SimpleIntegerProperty(0);
 
         NumberImage playersNumber = new NumberImage(0);
         playersNumber.getStyleClass().add("number");

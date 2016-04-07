@@ -14,16 +14,17 @@ import sample.Main;
 import sample.states.State;
 
 /**
- * Created by Nick on 2/26/2016.
+ * My naming skills could use some work but this is the abstract class
+ * that any "option" of the main menu (New Game, Load Game, and somewhat confusingly Options) extends from.
  */
 public abstract class MainMenuOption extends State {
 //    protected VBox content;
     protected ImageView headerImage;
-    protected VBox content;
-    private StackPane contentStack;
-    protected StackPane header;
+    protected final VBox content;
+    private final StackPane contentStack;
+    protected final StackPane header;
     protected Transition entrance;
-    protected MainMenu main;
+    protected final MainMenu main;
 
     public MainMenuOption(MainMenu main, StackPane header, StackPane contentStack) {
         super(main);

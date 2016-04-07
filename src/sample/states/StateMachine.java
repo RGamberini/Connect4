@@ -1,7 +1,7 @@
 package sample.states;
 
 /**
- * Created by Nick on 2/26/2016.
+ * A generic State Machine.
  */
 public interface StateMachine {
     void changeState(State newState);

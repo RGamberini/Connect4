@@ -16,12 +16,12 @@ import javafx.scene.shape.Rectangle;
 import java.util.HashMap;
 
 /**
- * Created by Nick on 4/4/2016.
+ * Another custom color picker! I'm getting real good at this now.
  */
 public class ColorSetPicker extends Pane {
-    private ObjectProperty<ColorSwatch> selectedButton;
+    private final ObjectProperty<ColorSwatch> selectedButton;
 
-    private static HashMap<Tile, Color[]> colorSets = new HashMap<>();
+    private static final HashMap<Tile, Color[]> colorSets = new HashMap<>();
     static {
         colorSets.put(Tile.PLAYER1, new Color[]{
                 Color.valueOf("#D32F2F"), Color.valueOf("F44336"), Color.valueOf("E91E63"), Color.valueOf("F8BBD0")});
@@ -30,7 +30,7 @@ public class ColorSetPicker extends Pane {
                 Color.valueOf("FFEB3B"), Color.valueOf("FBC02D"), Color.valueOf("FFC107"), Color.valueOf("FFF9C4")});
     }
     private class ColorSwatch extends JFXButton {
-        Color color;
+        final Color color;
 
         public ColorSwatch(Color color) {
             super();

@@ -9,13 +9,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Created by Nick on 3/20/2016.
+ * Generic Menu that contains a well styled header and body.
  */
 public class Menu extends StackPane {
-    protected JFXToolbar headerBG;
-    protected VBox mainVBox;
-    protected StackPane headerStack;
-    protected StackPane contentStack;
+    protected final JFXToolbar headerBG;
+    protected final VBox mainVBox;
+    protected final StackPane headerStack;
+    protected final StackPane contentStack;
 
     public Menu() {
         Pane mainCard = new Pane();

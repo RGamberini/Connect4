@@ -3,7 +3,7 @@ package sample;
 import java.util.ArrayList;
 
 /**
- * Created by Nick on 3/23/2016.
+ * Currently unused, was used at one time to time different AI's
  */
 public class AverageTime {
     public static ArrayList<Long> minimax = new ArrayList<>();

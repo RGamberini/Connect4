@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.*;
 
 /**
- * Created by Rudy Gamberini on 2/25/2016.
+ * Represents a single possible state of the Connect4 Board
  */
 public class BoardState {
     private Tile[][] state;
@@ -44,7 +44,7 @@ public class BoardState {
         updateRuns();
     }
 
-    public static boolean isValidBoard(Tile[][] state) throws InvalidBoardException {
+    private static boolean isValidBoard(Tile[][] state) throws InvalidBoardException {
         if (state.length != 7 || state[0].length != 6) {
             throw new InvalidBoardException("Incorrect board size");
         } else {
@@ -165,7 +165,7 @@ public class BoardState {
         //System.out.println("--------------------------------------------");
     }
 
-    public ArrayList<Point[]> getRuns(Tile tile) {
+    private ArrayList<Point[]> getRuns(Tile tile) {
         return this.runs.get(tile);
     }
 

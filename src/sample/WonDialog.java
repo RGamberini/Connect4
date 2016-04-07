@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Nick on 3/5/2016.
+ * Show's when you Win/Lose/Tie!
  */
 public class WonDialog extends Menu {
     private final static String pathPrefix = "gamedisplay/wonmenu/";
@@ -34,8 +34,8 @@ public class WonDialog extends Menu {
     }
 
     private final static String TIE = "tie.png";
-    private Connect4Board model;
-    private VBox mainVBox;
+    private final Connect4Board model;
+    private final VBox mainVBox;
 
     public WonDialog(StateDisplay main, Connect4Board model) {
         super();

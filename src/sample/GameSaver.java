@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.Map;
 
 /**
- * Created by Nick on 3/29/2016.
+ * Static class that takes files in and out and returns Connect4Boards.
  */
 public class GameSaver {
     public static boolean saveGame(Connect4Board board, File output) {

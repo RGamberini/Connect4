@@ -7,12 +7,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 /**
- * Created by Nick on 2/26/2016.
+ * The first state of the Main Menu that shows all the other options.
  */
 public class MainOptions extends MainMenuOption {
-    private RudeButton[] buttons;
+    private final RudeButton[] buttons;
     class RudeButton extends JFXButton {
-        public MainMenuOption nextState;
+        public final MainMenuOption nextState;
         public ImageView image;
         public RudeButton(String text, ImageView image, MainMenuOption nextState) {
             super(text, image);
