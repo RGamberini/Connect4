@@ -29,10 +29,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Nick on 3/28/2016.
+ * A State of Main Menu for loading the game.
  */
 public class LoadGameOption extends MainMenuOption {
-    ObjectProperty<Connect4Board> board;
+    final ObjectProperty<Connect4Board> board;
 
     public LoadGameOption(MainMenu main, StackPane header, StackPane contentStack) {
         super(main, header, contentStack);
@@ -83,6 +83,18 @@ public class LoadGameOption extends MainMenuOption {
             if (newVal != null) confirm.setDisable(false);
             else confirm.setDisable(true);
         });
+
+        /**
+         * Generate a preview image, neat!
+         */
+        ImageView previewImage = new ImageView();
+        previewImage.setTranslateY(-.025 * main.getMaxHeight());
+        previewImage.setSmooth(true);
+        previewImage.setPreserveRatio(false);
+        previewImage.setFitWidth(main.getWidth() * .3);
+        previewImage.setFitHeight(main.getHeight() * .21);
+
+        topVBox.getChildren().add(previewImage);
         chooseFile.setOnMouseClicked((event) -> {
             File file = loadGameChooser.showOpenDialog(header.getScene().getWindow());
             if (file != null) {
@@ -92,14 +104,8 @@ public class LoadGameOption extends MainMenuOption {
                 main.main.getChildren().add(0, display);
                 WritableImage preview = display.snapshot(null, null);
                 main.main.getChildren().remove(display);
-                ImageView previewImage = new ImageView(preview);
-                previewImage.setTranslateY(-.025 * main.getMaxHeight());
-                previewImage.setSmooth(true);
-                previewImage.setPreserveRatio(false);
-                previewImage.setFitWidth(main.getWidth() * .3);
-                previewImage.setFitHeight(main.getHeight() * .21);
 
-                topVBox.getChildren().add(previewImage);
+                previewImage.setImage(preview);
             }
         });
     }

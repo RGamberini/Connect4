@@ -14,12 +14,12 @@ import javax.swing.plaf.FileChooserUI;
 import java.io.File;
 
 /**
- * Created by Nick on 3/28/2016.
+ * In-Game settings menu.
  */
 public class SettingsDialog extends Menu {
     private final static String pathPrefix = "gamedisplay/settings/";
     // Resume's action is set in Display Controls
-    public JFXButton resume;
+    public final JFXButton resume;
 
     public SettingsDialog(StateDisplay main, Connect4Display display) {
         super();

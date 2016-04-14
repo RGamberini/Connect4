@@ -4,10 +4,12 @@ import com.sun.istack.internal.Nullable;
 import javafx.animation.Transition;
 
 /**
- * Created by Rudy Gamberini on 2/24/2016.
+ * A state for use in a State Machine, I really went back and forth and whether to use state's and state machines especially
+ * because I've never used them before. However I think it was worth it and made certain parts of the project simpler, even
+ * though I may have misused them in cases.
  */
 public abstract class State {
-    protected StateMachine main;
+    protected final StateMachine main;
     public State(StateMachine main) {
         this.main = main;
     }

@@ -18,14 +18,16 @@ import sample.states.BoardState;
 import java.awt.Point;
 
 /**
- * Created by Rudy Gamberini on 2/25/2016.
+ * The main gridpane each cell is a stackpane with the background image in it,
+ * if there's a tile it's colored and added on top.
  */
 public class Connect4Display extends GridPane {
-    private StackPane[][] cellArray;
-    public Connect4Board model;
-    public DoubleProperty width, height;
-    @Nullable private ObjectProperty<Point> hoveredCell;
-    public BooleanProperty interactive;
+    private final StackPane[][] cellArray;
+    public final Connect4Board model;
+    public final DoubleProperty width;
+    public final DoubleProperty height;
+    @Nullable private final ObjectProperty<Point> hoveredCell;
+    public final BooleanProperty interactive;
 
     public Connect4Display(Connect4Board model) {
         super();

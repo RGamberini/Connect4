@@ -21,20 +21,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by Nick on 2/25/2016.
+ * Consists of everything on top of the Connect4 display.
  */
 public class DisplayControls extends StackPane {
-    private HashMap<Tile, JFXButton> currentTurn;
+    private final HashMap<Tile, JFXButton> currentTurn;
     private final String[] playerImages = {"playerone.png", "playertwo.png"};
     private final String[] computerImages = {"computerone.png", "computertwo.png"};
-    private JFXButton[] turnImageButtons;
+
     public DisplayControls(Connect4Display display, SettingsDialog settingsMenu) {
         BorderPane borderPane = new BorderPane();
 
         JFXToolbar toolbar = new JFXToolbar();
         VBox tempVBox = new VBox(toolbar);
         borderPane.setTop(tempVBox);
-        turnImageButtons = new JFXButton[Connect4Board.turnOrder.size()];
+        JFXButton[] turnImageButtons = new JFXButton[Connect4Board.turnOrder.size()];
 
         for (int i = 0; i < Connect4Board.turnOrder.size(); i++) {
             Player player = display.model.getPlayer(Connect4Board.turnOrder.get(i));
@@ -97,27 +97,6 @@ public class DisplayControls extends StackPane {
         // Weird bug where the settings dialog wouldn't show the first time
         settingsDialog.show();
         settingsDialog.close();
-        //displayStack.setAlignment(Pos.TOP_LEFT);
-
-//        display.model.won.addListener((o, oldVal, newVal) -> {
-//            if (newVal && display.model.getCurrentTurn() != Tile.EMPTY) {
-//                ArrayList<Point[]> runs = display.model.currentState.get().getRuns(display.model.getCurrentTurn());
-//                Point[] winningRun = null;
-//                for (Point[] run: runs)
-//                    if (run.length == 4) winningRun = run;
-//                assert winningRun != null;
-//
-//                double startX = display.get(winningRun[0]).getParent().getBoundsInParent().getMinX(), startY = display.get(winningRun[0]).getParent().getBoundsInParent().getMinY();
-//                double endX = display.get(winningRun[3]).getParent().getBoundsInParent().getMinX(), endY = display.get(winningRun[3]).getParent().getBoundsInParent().getMinY();
-//
-//                //startY += display.get(winningRun[0]).getParent().getLayoutBounds().getHeight();
-//
-//                Line wonLine = new Line(startX, startY, endX, endY);
-//                wonLine.setFill(Paint.valueOf("FFFFFF"));
-//                wonLine.setStrokeWidth(16);
-//                displayStack.getChildren().add(wonLine);
-//            }
-//        });
 
         this.getChildren().add(borderPane);
     }

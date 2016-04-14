@@ -6,7 +6,8 @@ import sample.Tile;
 import sample.states.BoardState;
 
 /**
- * Created by Rudy Gamberini on 2/25/2016.
+ * Original test class for making sure all of my win conditions work, the reason this uses ImageParser is because I didn't
+ * yet have the Save / Load for BoardStates working yet.
  */
 public class MainTest {
     public static void main(String[] args) throws InvalidBoardException {

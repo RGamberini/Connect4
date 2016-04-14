@@ -13,19 +13,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Rudy Gamberini on 2/25/2016.
+ * Mostly immutable Connect4 Board
  */
 public class Connect4Board {
     public static final int COLUMNS = 7, ROWS = 6;
     public static final ArrayList<Tile> turnOrder = new ArrayList<>();
-    private Map<Tile, Player> players;
-    public BooleanProperty won;
+    private final Map<Tile, Player> players;
+    public final BooleanProperty won;
 
     static {
         turnOrder.add(Tile.PLAYER1);
         turnOrder.add(Tile.PLAYER2);
     }
-    public ObjectProperty<BoardState> currentState;
+    public final ObjectProperty<BoardState> currentState;
     public Connect4Board(int players) {
         currentState = new SimpleObjectProperty<>(new BoardState());
         won = new SimpleBooleanProperty(false);

@@ -17,11 +17,11 @@ import sample.states.State;
 import sample.states.StateMachine;
 
 /**
- * Created by Rudy Gamberini on 2/24/2016.
+ * This is the state that goes into the main state machine (StateDisplay) and it calls up the Main Menu state machine.
  */
 public class MainMenuState extends State {
-    protected StateDisplay main;
-    private MainMenu mainMenu;
+    protected final StateDisplay main;
+    private final MainMenu mainMenu;
 
     public MainMenuState(StateDisplay main) {
         super(main);

@@ -1,7 +1,7 @@
 package sample;
 
 /**
- * Created by Rudy Gamberini on 2/25/2016.
+ * Obvious exception for if the BoardState is illegal.
  */
 public class InvalidBoardException extends Exception {
     public InvalidBoardException(String s) {

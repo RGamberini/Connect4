@@ -16,7 +16,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Created by Rudy Gamberini on 3/15/2016.
+ * AI Class uses minimax with a depth of 6 by default.
  */
 public class AI extends Player {
 //    ObjectProperty<Point> nextMove;

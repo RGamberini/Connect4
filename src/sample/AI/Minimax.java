@@ -9,11 +9,11 @@ import sample.states.BoardState;
 import java.awt.*;
 
 /**
- * Created by Nick on 3/27/2016.
+ * Plain Ol' Minimax algorithm.
  */
 public class Minimax extends Task<Point> {
-    private Tile currentPlayer;
-    private BoardState board;
+    private final Tile currentPlayer;
+    private final BoardState board;
 
     public Minimax(Tile currentPlayer, BoardState board) {
         this.currentPlayer = currentPlayer;
@@ -33,8 +33,6 @@ public class Minimax extends Task<Point> {
     public Point evaluateBestMove(BoardState state, int depth) {
         try {
             return minimax(state, null, depth).space;
-            //return alphaBeta(state, null, depth, Integer.MIN_VALUE, Integer.MAX_VALUE).space;
-            //return negamax(state, null, depth).space;
         } catch (InvalidBoardException e) {
             e.printStackTrace();
         }
@@ -80,6 +78,7 @@ public class Minimax extends Task<Point> {
             }
         }
     }
+<<<<<<< HEAD
 
     public Move alphaBeta(BoardState state, Point changed, int depth, int alpha, int beta) throws InvalidBoardException {
         if (depth == 0 || state.checkForGameOver()) {
@@ -134,4 +133,6 @@ public class Minimax extends Task<Point> {
             else return bestMove;
         }
     }
+=======
+>>>>>>> 08b236bd971be659aa40f931c62c5bccd2adc9c9
 }

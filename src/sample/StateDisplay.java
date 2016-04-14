@@ -9,13 +9,13 @@ import sample.states.State;
 import sample.states.StateMachine;
 
 /**
- * Created by Rudy Gamberini on 2/24/2016.
+ * The big main State Machine for the whole program.
  */
 public class StateDisplay extends StackPane implements StateMachine {
     private State currentState;
-    private int size = 250;
-    public DoubleProperty _height = new SimpleDoubleProperty(size * 3);
-    public DoubleProperty _width = new SimpleDoubleProperty(size * 4);
+    private final int size = 250;
+    public final DoubleProperty _height = new SimpleDoubleProperty(size * 3);
+    public final DoubleProperty _width = new SimpleDoubleProperty(size * 4);
     public StateDisplay() {
         this.getStyleClass().add("state-display");
 

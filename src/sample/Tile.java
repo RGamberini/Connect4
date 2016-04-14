@@ -1,7 +1,7 @@
 package sample;
 
 /**
- * Created by Rudy Gamberini on 2/25/2016.
+ * Using an enum for tile ownership made life really easy.
  */
 public enum Tile {
     EMPTY, PLAYER1, PLAYER2

@@ -1,11 +1,11 @@
 package sample;
 
 /**
- * Created by Nick on 3/9/2016.
+ * Obviously a Player who is not an AI.
  */
 public class Player {
-    protected Connect4Board board;
-    protected Tile tile;
+    protected final Connect4Board board;
+    protected final Tile tile;
 
     public Player(Connect4Board board, Tile tile) {
         this.board = board;
