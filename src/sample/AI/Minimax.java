@@ -79,6 +79,10 @@ public class Minimax extends Task<Point> {
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> c1b3f335b680e1a141ea9bea4867f4667128e58a
 
     public Move alphaBeta(BoardState state, Point changed, int depth, int alpha, int beta) throws InvalidBoardException {
         if (depth == 0 || state.checkForGameOver()) {
@@ -133,6 +137,10 @@ public class Minimax extends Task<Point> {
             else return bestMove;
         }
     }
+<<<<<<< HEAD
 =======
 >>>>>>> 08b236bd971be659aa40f931c62c5bccd2adc9c9
+=======
+>>>>>>> d1bfb625731bb50ad5d52f8c83b8232fc54875ac
+>>>>>>> c1b3f335b680e1a141ea9bea4867f4667128e58a
 }
