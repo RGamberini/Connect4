@@ -1,4 +1,9 @@
 src/deprecated/
 out/
+/.classpath
+/Connect4.userlibraries
+/.project
+/Connect4.eml
+/libs
 .idea/
 saves/
