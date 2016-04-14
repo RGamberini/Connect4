@@ -87,7 +87,7 @@ public class Minimax extends Task<Point> {
         } else {
             if (state.turn == currentPlayer) {
                 // Maximizing
-                Move bestMove = new Move(null, alpha);
+                Move bestMove = new Move(null, Integer.MIN_VALUE);
                 for (Point move : state.getAllMoves()) {
                     BoardState newState = new BoardState(state, state.getNextTurn());
                     newState.set(move, state.turn);
@@ -101,7 +101,7 @@ public class Minimax extends Task<Point> {
                 else return bestMove;
             } else {
                 // Minimizing
-                Move bestMove = new Move(null, beta);
+                Move bestMove = new Move(null, Integer.MAX_VALUE);
                 for (Point move : state.getAllMoves()) {
                     BoardState newState = new BoardState(state, state.getNextTurn());
                     newState.set(move, state.turn);
