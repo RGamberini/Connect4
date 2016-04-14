@@ -78,4 +78,61 @@ public class Minimax extends Task<Point> {
             }
         }
     }
+<<<<<<< HEAD
+=======
+
+    public Move alphaBeta(BoardState state, Point changed, int depth, int alpha, int beta) throws InvalidBoardException {
+        if (depth == 0 || state.checkForGameOver()) {
+            return new Move(changed, state.getValue());
+        } else {
+            if (state.turn == currentPlayer) {
+                // Maximizing
+                Move bestMove = new Move(null, Integer.MIN_VALUE);
+                for (Point move : state.getAllMoves()) {
+                    BoardState newState = new BoardState(state, state.getNextTurn());
+                    newState.set(move, state.turn);
+                    Move toTest = alphaBeta(newState, move, depth - 1, alpha, beta);
+                    bestMove = max(toTest, bestMove);
+                    alpha = Integer.max(alpha, bestMove.value);
+                    bestMove.value = alpha;
+                    if (alpha >= beta) break;
+                }
+                if (changed != null) return new Move(changed, alpha);
+                else return bestMove;
+            } else {
+                // Minimizing
+                Move bestMove = new Move(null, Integer.MAX_VALUE);
+                for (Point move : state.getAllMoves()) {
+                    BoardState newState = new BoardState(state, state.getNextTurn());
+                    newState.set(move, state.turn);
+                    Move toTest = alphaBeta(newState, move, depth - 1, alpha, beta);
+                    bestMove = min(toTest, bestMove);
+                    beta = Integer.min(beta, bestMove.value);
+                    bestMove.value = beta;
+                    if (alpha >= beta) break;
+                }
+                if (changed != null) return new Move(changed, beta);
+                else return bestMove;
+            }
+        }
+    }
+
+    public Move negamax(BoardState state, Point changed, int depth) throws InvalidBoardException {
+        if (depth == 0 || state.checkForGameOver()) {
+            return new Move(changed, state.getValue() * (state.turn == currentPlayer? 1 : -1));
+        } else {
+            Move bestMove = new Move(null, Integer.MIN_VALUE);
+            for (Point move: state.getAllMoves()) {
+                BoardState newState = new BoardState(state, state.getNextTurn());
+                newState.set(move, state.turn);
+                Move toTest = negamax(newState, move, depth - 1);
+                toTest.value *= -1;
+
+                bestMove = max(bestMove, toTest);
+            }
+            if (changed != null) return new Move(changed, bestMove.value);
+            else return bestMove;
+        }
+    }
+>>>>>>> d1bfb625731bb50ad5d52f8c83b8232fc54875ac
 }
