@@ -20,19 +20,19 @@ public class MainTest {
         System.out.println("Should be 7 " + horizontalwin.length + " Should be 6 " + horizontalwin[0].length);
 
         System.out.print("Testing for horizontal win: ");
-        if (new BoardState(horizontalwin, Tile.PLAYER1).checkForGameOver())
+        if (new BoardState(horizontalwin, Tile.PLAYER1).winner != Tile.EMPTY)
             System.out.println("Passed!");
         else
             System.out.println("Failed!");
 
         System.out.print("Testing for vertical win: ");
-        if (new BoardState(verticalwin, Tile.PLAYER1).checkForGameOver())
+        if (new BoardState(verticalwin, Tile.PLAYER1).winner != Tile.EMPTY)
             System.out.println("Passed!");
         else
             System.out.println("Failed!");
 
         System.out.print("Testing for diagonal win: ");
-        if (new BoardState(diagonalwin1, Tile.PLAYER1).checkForGameOver() && new BoardState(diagonalwin2, Tile.PLAYER1).checkForGameOver())
+        if (new BoardState(diagonalwin1, Tile.PLAYER1).winner != Tile.EMPTY && new BoardState(diagonalwin2, Tile.PLAYER1).winner != Tile.EMPTY)
             System.out.println("Passed!");
         else
             System.out.println("Failed!");

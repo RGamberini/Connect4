@@ -14,6 +14,7 @@ public class BoardState {
     private Tile[][] state;
     public Tile turn;
     private final Map<Tile, ArrayList<Point[]>> runs = new HashMap<>();
+    public Tile winner = Tile.EMPTY;
     public BoardState() {
         turn = Tile.PLAYER1;
         state = new Tile[Connect4Board.COLUMNS][Connect4Board.ROWS];
@@ -27,13 +28,12 @@ public class BoardState {
             else
                 runs.put(key, new ArrayList<>());
         }
-
     }
 
     public BoardState(BoardState oldState, Tile turn) throws InvalidBoardException {
         if (isValidBoard(oldState.getState()))
             this.state = oldState.getState();
-        this.runs.putAll(oldState.runs);
+        this.updateRuns();
         this.turn = turn;
     }
 
@@ -66,11 +66,17 @@ public class BoardState {
         return point.x < state.length && point.y < state[point.x].length && point.x >= 0 && point.y >= 0;
     }
 
-    public void set(Point point, Tile value) {
+    public BoardState set(Point point) {
         if (inBounds(point)) {
-            this.state[point.x][point.y] = value;
+            try {
+                Tile[][] nextInnerState = this.getState();
+                nextInnerState[point.x][point.y] = turn;
+                return new BoardState(nextInnerState, this.getNextTurn());
+            } catch (InvalidBoardException e) {
+                e.printStackTrace();
+            }
         }
-        updateRuns();
+        return null;
     }
 
     public Tile get(Point point) {
@@ -157,6 +163,7 @@ public class BoardState {
                             runs.get(state[x][y]).add(run.toArray(new Point[run.size()]));
                             for (Point runSegment: run)
                                 inARun.add(runSegment);
+                            if (run.size() > 3) winner = state[x][y];
                         }
                     }
                 }
@@ -165,39 +172,16 @@ public class BoardState {
         //System.out.println("--------------------------------------------");
     }
 
-    private ArrayList<Point[]> getRuns(Tile tile) {
+    public ArrayList<Point[]> getRuns(Tile tile) {
         return this.runs.get(tile);
     }
 
-    /**
-     * The heuristic function for the state, returns 10^n where n is the length longest run of the current player
-     * subtracted from the length of the longest run not owned by the current player.
-     */
-    public int getValue() {
-        int currentTurnLongestRun = 0;
-        int otherLongestRun = 0;
-        for (Tile player : Connect4Board.turnOrder) {
-            for (Point[] run : getRuns(player)) {
-                if (player == turn) {
-                    if (currentTurnLongestRun < run.length)
-                        currentTurnLongestRun = (int) Math.pow(10, run.length);
-                } else {
-                    if (run.length > 3)
-                        return Integer.MIN_VALUE;
-                    if (otherLongestRun < run.length)
-                        otherLongestRun = (int) Math.pow(10, run.length);
-                }
-            }
-        }
-        return currentTurnLongestRun + (otherLongestRun * -1);
-    }
-
-    public boolean checkForGameOver() {
+    private Tile checkForGameOver() {
         for (Tile key: Connect4Board.turnOrder)
             for (Point[] run : this.runs.get(key))
                 if (run.length > 3)
-                    return true;
-        return false;
+                    return key;
+        return Tile.EMPTY;
     }
 
     public Point getTopCell(int x) {
@@ -208,7 +192,7 @@ public class BoardState {
         return new Point(x, -1);
     }
 
-    public Point[] getAllMoves() {
+    public synchronized Point[] getAllMoves() {
         ArrayList<Point> moves = new ArrayList<>();
         for (int x = 0; x < Connect4Board.COLUMNS; x++) {
             Point openTopCell = getTopCell(x);

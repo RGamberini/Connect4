@@ -18,21 +18,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * AI Class uses minimax with a depth of 6 by default.
  */
-public class AI extends Player {
+public abstract class AI extends Player {
 //    ObjectProperty<Point> nextMove;
     public AI(Connect4Board board, Tile tile) {
         super(board, tile);
         board.currentState.addListener((o, oldVal, newVal) -> {
-            AITurn(newVal);
+            this.AITurn(newVal);
         });
-        AITurn(board.currentState.get());
+        this.AITurn(board.currentState.get());
     }
 
-    private void AITurn(BoardState newVal) {
-        if (newVal.turn == tile && !newVal.checkForGameOver()) {
-            Task<Point> heuristic = new Minimax(tile, newVal);
-            heuristic.setOnSucceeded((event) -> board.set(heuristic.getValue(), tile));
-            new Thread(heuristic).start();
-        }
-    }
+    protected abstract void AITurn(BoardState newVal);
 }

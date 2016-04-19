@@ -85,7 +85,7 @@ public class Connect4Display extends GridPane {
                 });
                 innerCell.setOnMouseClicked((event) -> {
                     if (interactive.get() && model.getTopCell(_x).y != -1)
-                        model.set(model.getTopCell(_x), model.getCurrentTurn());
+                        model.set(model.getTopCell(_x));
                     hoveredCell.setValue(null);
                 });
                 interactive.addListener((o, oldVal, newVal) -> {
