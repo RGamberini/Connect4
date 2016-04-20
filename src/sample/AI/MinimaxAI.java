@@ -6,7 +6,6 @@ import sample.Tile;
 import sample.states.BoardState;
 
 import java.awt.*;
-import java.util.Arrays;
 
 /**
  * Created by Nick on 4/14/2016.
@@ -17,7 +16,7 @@ public class MinimaxAI extends AI {
     }
 
     @Override
-    protected void AITurn(BoardState newVal) {
+    protected void AITurn(BoardState oldVal, BoardState newVal) {
         if (newVal.turn == tile && newVal.winner == Tile.EMPTY && newVal.getAllMoves().length > 0) {
             Task<Point> heuristic = new MinimaxAlgo(tile, newVal);
             heuristic.setOnSucceeded((event) -> board.set(heuristic.getValue()));

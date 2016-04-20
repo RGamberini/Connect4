@@ -14,29 +14,20 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by Nick on 3/27/2016.
  */
 class MonteCarloAlgo extends Task<Point> {
-    private MonteCarloAI currentPlayer;
-    private BoardState board;
+    private MonteCarloAI.MonteCarloWorker workerAI;
 
-    public MonteCarloAlgo(MonteCarloAI currentPlayer, BoardState board) {
-        this.currentPlayer = currentPlayer;
-        this.board = board;
+    public MonteCarloAlgo(MonteCarloAI.MonteCarloWorker workerAI) {
+        this.workerAI = workerAI;
     }
 
 
     @Override
     protected Point call() throws Exception {
-        Point bestMove = null;
-        double bestValue = -1;
-        for (Point move: board.getAllMoves()) {
-            BoardState testState = board.set(move);
-            double testValue = /*currentPlayer.workerAI.selectionFunction(testState);*/ 0;
-            if (testValue > bestValue) {
-                bestValue = testValue;
-                bestMove = move;
-            }
-        }
-        assert bestMove != null;
-        return bestMove;
+        long start = System.currentTimeMillis();
+        long deltaTime = System.currentTimeMillis() - start;
+        if (deltaTime < 500)
+            Thread.sleep(500 - deltaTime);
+        return workerAI.getBest();
     }
 }
 

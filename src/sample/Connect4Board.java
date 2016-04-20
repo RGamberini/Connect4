@@ -37,7 +37,7 @@ public class Connect4Board {
             Player player;
             if (i < players)
                 player = new Player(this, tile);
-            else player = new MinimaxAI(this, tile);
+            else player = new MonteCarloAI(this, tile);
             this.players.put(tile, player);
         }
     }
