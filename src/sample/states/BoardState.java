@@ -15,6 +15,7 @@ public class BoardState {
     public Tile turn;
     private final Map<Tile, ArrayList<Point[]>> runs = new HashMap<>();
     public Tile winner = Tile.EMPTY;
+
     public BoardState() {
         turn = Tile.PLAYER1;
         state = new Tile[Connect4Board.COLUMNS][Connect4Board.ROWS];
@@ -210,6 +211,22 @@ public class BoardState {
             }
         }
         return deepCopy;
+    }
+
+//    @Override
+//    public int hashCode() {
+//        return Arrays.deepHashCode(state);
+//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BoardState state1 = (BoardState) o;
+
+        return Arrays.deepEquals(state, state1.state);
+
     }
 
     @Override

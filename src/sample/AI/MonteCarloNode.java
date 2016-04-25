@@ -11,10 +11,10 @@ import java.util.Random;
 /**
  * Created by Nick on 4/19/2016.
  */
-class MonteCarloNode {
-    public Point initialPoint;
-    private BoardState initialState;
-    private HashMap<Point, MonteCarloNode> children;
+public class MonteCarloNode {
+    public @Nullable Point initialPoint;
+    public BoardState initialState;
+    public HashMap<Point, MonteCarloNode> children;
     private Tile tile;
     private static Random rng = new Random();
     public double wins, plays;
@@ -23,6 +23,7 @@ class MonteCarloNode {
         this.initialPoint = initialPoint;
         this.initialState = initialState;
         this.tile = tile;
+
         wins = 0;
         plays = 0;
     }
@@ -37,8 +38,10 @@ class MonteCarloNode {
         assert !this.isLeaf();
         if (this.children.size() == 0) return this;
 
-        Object[] values = children.values().toArray();
-        return (MonteCarloNode) values[rng.nextInt(values.length)];
+//        if (rng.nextInt(10) < 5) {
+            Object[] values = children.values().toArray();
+            return (MonteCarloNode) values[rng.nextInt(values.length)];
+//        }
     }
 
     public MonteCarloNode bestChild() {
@@ -74,6 +77,7 @@ class MonteCarloNode {
     }
 
     public void expand() {
+        // Interesting enough this plays > 10 stops a huge memory leak from happening
         if (initialState.getAllMoves().length != 0) {
             children = new HashMap<>();
             for (Point move : initialState.getAllMoves()) {
@@ -86,13 +90,15 @@ class MonteCarloNode {
         return children == null;
     }
 
-    public boolean simulate() {
+    public double simulate() {
         BoardState currentState = initialState;
         Point[] allMoves = currentState.getAllMoves();
         while (currentState.winner == Tile.EMPTY && allMoves.length > 0) {
             currentState = currentState.set(allMoves[rng.nextInt(allMoves.length)]);
             allMoves = currentState.getAllMoves();
         }
-        return currentState.winner == tile;
+        if (currentState.winner == tile) return 1;
+        else if (currentState.winner == Tile.EMPTY) return 1;
+        else return 0;
     }
 }

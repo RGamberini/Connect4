@@ -28,7 +28,7 @@ public class MonteCarloAI extends AI {
     protected void AITurn(BoardState oldVal, BoardState newVal) {
         if (workerAI != null) workerAI.setNextMove(getMove(oldVal, newVal));
         if (newVal.turn == tile && newVal.winner == Tile.EMPTY && newVal.getAllMoves().length > 0) {
-            MonteCarloAlgo grabTask = new MonteCarloAlgo(workerAI);
+            MonteCarloAlgo grabTask = new MonteCarloAlgo(workerAI, tile);
             grabTask.setOnSucceeded((event) -> board.set(grabTask.getValue()));
             new Thread(grabTask).start();
         }
@@ -100,11 +100,11 @@ public class MonteCarloAI extends AI {
             /**
              * Simulation
              */
-            boolean won = selectedNode.simulate();
+            double won = selectedNode.simulate();
             // Back Propagation
             for (MonteCarloNode parent : parentNodes) {
                 parent.plays++;
-                if(won) parent.wins++;
+                parent.wins += won;
             }
         }
 
