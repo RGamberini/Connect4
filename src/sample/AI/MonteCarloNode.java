@@ -1,10 +1,12 @@
 package sample.AI;
 
 import com.sun.istack.internal.Nullable;
+import sample.Connect4Board;
 import sample.Tile;
 import sample.states.BoardState;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -100,5 +102,33 @@ public class MonteCarloNode {
         if (currentState.winner == tile) return 1;
         else if (currentState.winner == Tile.EMPTY) return 1;
         else return 0;
+    }
+
+    public double[][] serialize() {
+        ArrayList<double[]> doubleList = new ArrayList<>();
+        doubleList.add(new double[]{plays, wins});
+        if (!this.isLeaf()) {
+            MonteCarloNode[] childs = new MonteCarloNode[this.children.size()];
+            Point[] allMoves = this.initialState.getAllMoves();
+            for (int i = 0; i < allMoves.length; i++) {
+                Point move = allMoves[i];
+                childs[i] = this.children.get(move);
+            }
+            do {
+                ArrayList<MonteCarloNode> newChilds = new ArrayList<>();
+                for (MonteCarloNode child: childs) {
+                    if (child != null) {
+                        doubleList.add(new double[]{child.plays, child.wins});
+                        if(!child.isLeaf()) {
+                            for (Point move: child.initialState.getAllMoves())
+                                newChilds.add(child.get(move));
+                        }
+                    }
+                }
+                childs = new MonteCarloNode[newChilds.size()];
+                newChilds.toArray(childs);
+            }while(childs.length > 0);
+        }
+        return doubleList.toArray(new double[][]{});
     }
 }
