@@ -12,7 +12,7 @@ import java.util.HashSet;
  * Created by Nick on 4/26/2016.
  */
 public class MonteCarloWorker implements Runnable {
-    MonteCarloNode initialNode;
+    public MonteCarloNode initialNode;
     private @Nullable
     Point nextMove;
 
@@ -35,16 +35,16 @@ public class MonteCarloWorker implements Runnable {
                 nextMove = null;
             }
             montecarlo(initialNode);
-            i++;
-            if (i > 80000) {
-                for (Point move : initialNode.initialState.getAllMoves()) {
-                    MonteCarloNode testNode = initialNode.get(move);
-                    double testValue = testNode.selectionFunction();
-                    System.out.println("(" + move.x + ", " + move.y + ") value: " + df.format(testValue) + " Win/Play " +
-                            testNode.wins + ":" + testNode.plays);
-                }
-                i = 0;
-            }
+//            i++;
+//            if (i > 80000) {
+//                for (Point move : initialNode.initialState.getAllMoves()) {
+//                    MonteCarloNode testNode = initialNode.get(move);
+//                    double testValue = testNode.selectionFunction();
+//                    System.out.println("(" + move.x + ", " + move.y + ") value: " + df.format(testValue) + " Win/Play " +
+//                            testNode.wins + ":" + testNode.plays);
+//                }
+//                i = 0;
+//            }
         }
         System.out.println("All over!");
     }

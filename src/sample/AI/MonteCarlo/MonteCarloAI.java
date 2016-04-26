@@ -19,7 +19,7 @@ public class MonteCarloAI extends AI {
 
     public MonteCarloAI(Connect4Board board, Tile tile) {
         super(board, tile);
-        workerAI = new MonteCarloWorker(board.currentState.get());
+        workerAI = new MonteCarloWorker(board.currentState.get(), tile);
         monteCarloThread = new Thread(workerAI);
         monteCarloThread.setDaemon(true);
         monteCarloThread.start();
