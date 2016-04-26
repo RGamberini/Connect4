@@ -1,7 +1,6 @@
-package sample.AI;
+package sample.AI.MonteCarlo;
 
 import com.sun.istack.internal.Nullable;
-import sample.Connect4Board;
 import sample.Tile;
 import sample.states.BoardState;
 
@@ -130,5 +129,27 @@ public class MonteCarloNode {
             }while(childs.length > 0);
         }
         return doubleList.toArray(new double[][]{});
+    }
+
+    public void deserialize(double[][] serializedNode) {
+        this.plays = serializedNode[0][0];
+        this.wins = serializedNode[0][1];
+
+        if (this.isLeaf()) this.expand();
+        int serializedNodeIndex = 1;
+        MonteCarloNode parent = this;
+
+        ArrayList<MonteCarloNode> parents = new ArrayList<>();
+        while (serializedNodeIndex < serializedNode.length) {
+            Point[] allMoves = parent.initialState.getAllMoves();
+            for (int i = 0; i < allMoves.length && serializedNodeIndex < serializedNode.length; i++, serializedNodeIndex++) {
+                MonteCarloNode child = parent.children.get(allMoves[i]);
+                child.plays = serializedNode[serializedNodeIndex][0];
+                child.wins = serializedNode[serializedNodeIndex][1];
+                parents.add(child);
+            }
+            parent = parents.remove(0);
+            if (parent.isLeaf()) parent.expand();
+        }
     }
 }

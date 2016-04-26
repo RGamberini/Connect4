@@ -4,9 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import sample.AI.AI;
-import sample.AI.MinimaxAI;
-import sample.AI.MonteCarloAI;
+import sample.AI.MonteCarlo.MonteCarloAI;
 import sample.states.BoardState;
 
 import java.awt.*;

@@ -11,7 +11,7 @@ import java.awt.*;
 /**
  * Plain Ol' Minimax algorithm.
  */
-class MinimaxAlgo extends Task<Point> {
+public class MinimaxAlgo extends Task<Point> {
     private final Tile currentPlayer;
     private final BoardState board;
 

@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * For use by the Minimax algorithm bundles together a move and that moves value.
  */
-class Move {
+public class Move {
     public double value;
     public final Point space;
 

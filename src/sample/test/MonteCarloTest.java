@@ -1,14 +1,10 @@
 package sample.test;
 
-import com.sun.corba.se.impl.orbutil.ObjectWriter;
-import sample.AI.MonteCarloAI;
-import sample.AI.MonteCarloNode;
-import sample.Connect4Board;
+import sample.AI.MonteCarlo.MonteCarloNode;
 import sample.Tile;
 import sample.states.BoardState;
 
 import java.text.DecimalFormat;
-import java.util.Iterator;
 
 /**
  * Created by Nick on 4/19/2016.

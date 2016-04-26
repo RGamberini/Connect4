@@ -1,23 +1,21 @@
-package sample.AI;
+package sample.AI.MonteCarlo;
 
 import javafx.concurrent.Task;
-import sample.Connect4Board;
+import sample.AI.MinimaxAlgo;
+import sample.AI.Move;
 import sample.InvalidBoardException;
 import sample.Tile;
-import sample.states.BoardState;
 
 import java.awt.*;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Nick on 3/27/2016.
  */
 class MonteCarloAlgo extends Task<Point> {
-    private MonteCarloAI.MonteCarloWorker workerAI;
+    private MonteCarloWorker workerAI;
     private Tile currentPlayer;
 
-    public MonteCarloAlgo(MonteCarloAI.MonteCarloWorker workerAI, Tile currentPlayer) {
+    public MonteCarloAlgo(MonteCarloWorker workerAI, Tile currentPlayer) {
         this.currentPlayer = currentPlayer;
         this.workerAI = workerAI;
     }
