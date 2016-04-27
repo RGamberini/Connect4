@@ -11,6 +11,7 @@ import java.awt.*;
  * Created by Nick on 4/14/2016.
  */
 public class MinimaxAI extends AI {
+    public final AIType aiType = AIType.MINIMAX;
     public MinimaxAI(Connect4Board board, Tile tile) {
         super(board, tile);
     }
@@ -22,5 +23,10 @@ public class MinimaxAI extends AI {
             heuristic.setOnSucceeded((event) -> board.set(heuristic.getValue()));
             new Thread(heuristic).start();
         }
+    }
+
+    @Override
+    public AIType getAIType() {
+        return AIType.MINIMAX;
     }
 }

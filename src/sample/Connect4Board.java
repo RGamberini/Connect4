@@ -4,6 +4,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import sample.AI.AIType;
+import sample.AI.MinimaxAI;
 import sample.AI.MonteCarlo.MonteCarloAI;
 import sample.states.BoardState;
 
@@ -26,16 +28,24 @@ public class Connect4Board {
         turnOrder.add(Tile.PLAYER2);
     }
     public final ObjectProperty<BoardState> currentState;
-    public Connect4Board(int players) {
+    public Connect4Board(AIType[] playerAITypes) {
         currentState = new SimpleObjectProperty<>(new BoardState());
         won = new SimpleBooleanProperty(false);
         this.players = new HashMap<>(turnOrder.size());
         for (int i = 0; i < turnOrder.size(); i++) {
             Tile tile = turnOrder.get(i);
-            Player player;
-            if (i < players)
-                player = new Player(this, tile);
-            else player = new MonteCarloAI(this, tile);
+            Player player = null;
+            switch (playerAITypes[i]) {
+                case HUMAN:
+                    player = new Player(this, tile);
+                    break;
+                case MINIMAX:
+                    player = new MinimaxAI(this, tile);
+                    break;
+                case MONTECARLO:
+                    player = new MonteCarloAI(this, tile);
+                    break;
+            }
             this.players.put(tile, player);
         }
     }
@@ -45,6 +55,14 @@ public class Connect4Board {
     public Point[] getAllMoves() { return this.currentState.get().getAllMoves();}
     public Player getPlayer(Tile tile) { return this.players.get(tile);}
     public Map<Tile, Player> getPlayers() { return players;}
+    public AIType[] getAITypes() {
+        AIType[] result = new AIType[players.size()];
+        for (int i = 0; i < Connect4Board.turnOrder.size(); i++) {
+            Tile turn = Connect4Board.turnOrder.get(i);
+            result[i] = this.players.get(turn).getAIType();
+        }
+        return result;
+    }
 
     public void set(Point p) {
         // Don't update won before changing the state to avoid breaking listeners on won

@@ -9,16 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="187.37428mm"
+   width="202.4989mm"
    height="21.879456mm"
-   viewBox="0 0 663.92461 77.525629"
+   viewBox="0 0 717.51578 77.525629"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="playertwo.svg"
-   inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\mainmenu\newgame\playertwo.png"
-   inkscape:export-xdpi="41.792633"
-   inkscape:export-ydpi="41.792633">
+   sodipodi:docname="montecarlo.svg"
+   inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\mainmenu\newgame\montecarlo.png"
+   inkscape:export-xdpi="27.861755"
+   inkscape:export-ydpi="27.861755">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.3816406"
-     inkscape:cx="-297.2805"
-     inkscape:cy="42.243229"
+     inkscape:zoom="2.8648997"
+     inkscape:cx="114.97168"
+     inkscape:cy="-221.99564"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -38,7 +38,7 @@
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     showguides="true"
+     showguides="false"
      objecttolerance="10000"
      guidetolerance="10000"
      inkscape:snap-bbox="true"
@@ -77,20 +77,20 @@
      transform="translate(-5.195924,-1.2499962)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:98.14134979px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:98.14134979px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="-3.5823843"
        y="74.036125"
        id="text4155"
        sodipodi:linespacing="125%"
        transform="scale(0.95747664,1.0444119)"
-       inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\playertwo.png"
-       inkscape:export-xdpi="18.574503"
-       inkscape:export-ydpi="18.574503"><tspan
+       inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\mainmenu\newgame\montecarlo.png"
+       inkscape:export-xdpi="18.564051"
+       inkscape:export-ydpi="18.564051"><tspan
          sodipodi:role="line"
          id="tspan4157"
          x="-3.5823843"
          y="74.036125"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;">PLAYER TWO</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">MONTECARLO</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot6711"

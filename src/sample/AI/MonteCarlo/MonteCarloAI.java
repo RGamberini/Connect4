@@ -2,6 +2,7 @@ package sample.AI.MonteCarlo;
 
 import com.sun.istack.internal.Nullable;
 import sample.AI.AI;
+import sample.AI.AIType;
 import sample.Connect4Board;
 import sample.Tile;
 import sample.states.BoardState;
@@ -41,5 +42,10 @@ public class MonteCarloAI extends AI {
                 if (oldVal.get(move) != newVal.get(move))
                     return move;
         return null;
+    }
+
+    @Override
+    public AIType getAIType() {
+        return AIType.MONTECARLO;
     }
 }

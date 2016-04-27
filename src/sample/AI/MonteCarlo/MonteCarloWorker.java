@@ -13,8 +13,7 @@ import java.util.HashSet;
  */
 public class MonteCarloWorker implements Runnable {
     public MonteCarloNode initialNode;
-    private @Nullable
-    Point nextMove;
+    private @Nullable Point nextMove;
 
     public synchronized void setNextMove(Point nextMove) {
         this.nextMove = nextMove;
@@ -66,7 +65,7 @@ public class MonteCarloWorker implements Runnable {
         /**
          * Expansion
          */
-        if (selectedNode.plays > 60) selectedNode.expand();
+        if (selectedNode.plays > 25) selectedNode.expand();
 
         /**
          * Simulation

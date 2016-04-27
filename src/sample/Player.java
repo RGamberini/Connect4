@@ -1,5 +1,7 @@
 package sample;
 
+import sample.AI.AIType;
+
 /**
  * Obviously a Player who is not an AI.
  */
@@ -15,4 +17,6 @@ public class Player {
     public Tile getTile() {
         return tile;
     }
+
+    public AIType getAIType() { return AIType.HUMAN; }
 }

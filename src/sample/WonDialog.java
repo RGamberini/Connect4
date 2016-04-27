@@ -77,10 +77,7 @@ public class WonDialog extends Menu {
         contentStack.getChildren().add(content);
 
         playAgain.setOnMouseClicked((event) -> {
-            int players = 0;
-            for (Player player: model.getPlayers().values())
-                if (!(player instanceof AI)) players++;
-            main.changeState(new GameDisplayState(main, new Connect4Board(players)));
+            main.changeState(new GameDisplayState(main, new Connect4Board(model.getAITypes())));
         });
 
         mainMenu.setOnMouseClicked((event) -> main.changeState(new MainMenuState(main)));

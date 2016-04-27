@@ -1,6 +1,7 @@
 package sample;
 
 import sample.AI.AI;
+import sample.AI.AIType;
 import sample.states.BoardState;
 
 import java.io.*;
@@ -16,9 +17,13 @@ public class GameSaver {
             StringBuilder sb = new StringBuilder();
             BoardState state = board.currentState.get();
             Tile[][] stateCopy = state.getState();
-            int players = Connect4Board.turnOrder.size();
-            for (Player player: board.getPlayers().values()) if (player instanceof AI) players--;
-            sb.append(players).append("\n");
+            boolean firstIteration = true;
+            for (AIType aiType: board.getAITypes()) {
+                if (!firstIteration) sb.append(" ");
+                sb.append(aiType);
+                firstIteration = false;
+            }
+            sb.append("\n");
             sb.append(state.turn).append("\n");
             for (int y = 0; y < stateCopy[0].length; y++) {
                 for (int x = 0; x < stateCopy.length; x++) {
@@ -38,7 +43,13 @@ public class GameSaver {
     public static Connect4Board loadGame(File input) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(input));
-            int players = Integer.valueOf(reader.readLine());
+
+            String[] split = reader.readLine().split(" ");
+            AIType[] aiTypes = new AIType[split.length];
+            for (int i = 0; i < split.length; i++) {
+                aiTypes[i] = AIType.valueOf(split[i]);
+            }
+
             Tile currentTurn = Tile.valueOf(reader.readLine());
             Tile[][] state = new Tile[Connect4Board.COLUMNS][Connect4Board.ROWS];
             for (int y = 0; y < state[0].length; y++) {
@@ -48,7 +59,7 @@ public class GameSaver {
                 }
             }
             BoardState newState = new BoardState(state, currentTurn);
-            Connect4Board newBoard = new Connect4Board(players);
+            Connect4Board newBoard = new Connect4Board(aiTypes);
             newBoard.currentState.set(newState);
             return newBoard;
 
