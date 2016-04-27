@@ -91,8 +91,8 @@ public class LoadGameOption extends MainMenuOption {
         previewImage.setTranslateY(-.025 * main.getMaxHeight());
         previewImage.setSmooth(true);
         previewImage.setPreserveRatio(false);
-        previewImage.setFitWidth(main.getWidth() * .3);
-        previewImage.setFitHeight(main.getHeight() * .21);
+        previewImage.fitWidthProperty().bind(Bindings.multiply(main.maxWidthProperty(), .3));
+        previewImage.fitHeightProperty().bind(Bindings.multiply(main.maxHeightProperty(), .21));
 
         topVBox.getChildren().add(previewImage);
         chooseFile.setOnMouseClicked((event) -> {
