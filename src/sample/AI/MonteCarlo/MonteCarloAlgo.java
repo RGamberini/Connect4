@@ -24,11 +24,13 @@ class MonteCarloAlgo extends Task<Point> {
     @Override
     protected Point call() throws Exception {
         long start = System.currentTimeMillis();
-        Point move = minimax(workerAI.initialNode, null, 4).space;
         long deltaTime = System.currentTimeMillis() - start;
         if (deltaTime < 500)
             Thread.sleep(500 - deltaTime);
-        return move;
+//        Point move = minimax(workerAI.initialNode, null, 4).space;
+        System.out.println("Plays: " + workerAI.initialNode.bestChild().plays + " Wins: " + workerAI.initialNode.bestChild().wins);
+        if (currentPlayer == Tile.PLAYER1) return workerAI.getBest();
+        else return workerAI.initialNode.worstChild().initialPoint;
     }
 
     public Move minimax(MonteCarloNode state, Point changed, int depth) throws InvalidBoardException {

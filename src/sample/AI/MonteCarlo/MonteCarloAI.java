@@ -8,20 +8,35 @@ import sample.Tile;
 import sample.states.BoardState;
 
 import java.awt.*;
-import java.text.DecimalFormat;
-import java.util.HashSet;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 /**
  * Created by Nick on 4/14/2016.
  */
 public class MonteCarloAI extends AI {
     public MonteCarloWorker workerAI;
-    private Thread monteCarloThread;
 
     public MonteCarloAI(Connect4Board board, Tile tile) {
         super(board, tile);
+        if (workerAI == null)
+            initializeWorker();
+    }
+
+    private void initializeWorker() {
         workerAI = new MonteCarloWorker(board.currentState.get(), tile);
-        monteCarloThread = new Thread(workerAI);
+        try {
+            MonteCarloNode node = new MonteCarloNode(null, board.currentState.get(), tile);
+            ObjectInputStream oos = new ObjectInputStream(new FileInputStream("MonteCarlo.data"));
+            double[][] serializedNode = (double[][])oos.readObject();
+            node.deserialize(serializedNode);
+            workerAI.initialNode = node;
+            oos.close();
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+        Thread monteCarloThread = new Thread(workerAI);
         monteCarloThread.setDaemon(true);
         monteCarloThread.start();
     }
@@ -30,6 +45,8 @@ public class MonteCarloAI extends AI {
     protected void AITurn(BoardState oldVal, BoardState newVal) {
         if (workerAI != null) workerAI.setNextMove(getMove(oldVal, newVal));
         if (newVal.turn == tile && newVal.winner == Tile.EMPTY && newVal.getAllMoves().length > 0) {
+            if (workerAI == null) initializeWorker();
+
             MonteCarloAlgo grabTask = new MonteCarloAlgo(workerAI, tile);
             grabTask.setOnSucceeded((event) -> board.set(grabTask.getValue()));
             new Thread(grabTask).start();

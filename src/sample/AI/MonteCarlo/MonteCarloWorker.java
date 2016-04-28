@@ -49,6 +49,8 @@ public class MonteCarloWorker implements Runnable {
     }
 
     private void montecarlo(MonteCarloNode initialNode) {
+        int  currentDepth = 0;
+        int maxDepth = 5;
         // Keep track of all the parents
         HashSet<MonteCarloNode> parentNodes = new HashSet<>();
         parentNodes.add(initialNode);
@@ -57,15 +59,16 @@ public class MonteCarloWorker implements Runnable {
          */
         MonteCarloNode selectedNode = initialNode;
         assert selectedNode != null;
-        while (!selectedNode.isLeaf()) {
+        while (!selectedNode.isLeaf() && currentDepth < maxDepth) {
             selectedNode = selectedNode.select();
             parentNodes.add(selectedNode);
+            currentDepth++;
         }
 
         /**
          * Expansion
          */
-        if (selectedNode.plays > 25) selectedNode.expand();
+        if (selectedNode.plays > 25 && currentDepth < maxDepth) selectedNode.expand();
 
         /**
          * Simulation

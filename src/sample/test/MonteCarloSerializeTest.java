@@ -10,6 +10,7 @@ import java.awt.*;
 import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.function.Supplier;
 
 /**
@@ -39,7 +40,8 @@ public class MonteCarloSerializeTest {
             threads[i].setDaemon(true);
             threads[i].start();
         }
-        Thread.sleep(80000);
+        Scanner scanner = new Scanner(System.in);
+        scanner.next();
         for (Thread workerThread: threads) {
             workerThread.interrupt();
         }
