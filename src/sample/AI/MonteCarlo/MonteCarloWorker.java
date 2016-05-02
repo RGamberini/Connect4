@@ -6,82 +6,111 @@ import sample.states.BoardState;
 
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Nick on 4/26/2016.
  */
 public class MonteCarloWorker implements Runnable {
-    public MonteCarloNode initialNode;
+    public BoardState initialState;
     private @Nullable Point nextMove;
+    private static Random rng = new Random();
+    private Tile tile;
+    public HashMap<BoardState, AtomicInteger> plays, wins;
 
     public synchronized void setNextMove(Point nextMove) {
         this.nextMove = nextMove;
     }
 
     public MonteCarloWorker(BoardState initialState, Tile tile) {
-        this.initialNode = new MonteCarloNode(null, initialState, tile);
+        this.initialState = initialState;
+        this.tile = tile;
+        this.plays = new HashMap<>();
+        this.wins = new HashMap<>();
     }
 
     @Override
     public void run() {
-        int i = 0;
-        DecimalFormat df = new DecimalFormat("##.##");
         System.out.println("running");
-        while (initialNode.initialState.winner == Tile.EMPTY && initialNode.initialState.getAllMoves().length > 0 && !Thread.interrupted()) {
-            if (nextMove != null && !initialNode.isLeaf()) {
-                initialNode = initialNode.get(nextMove);
+        while (initialState.winner == Tile.EMPTY && initialState.getAllMoves().length > 0 && !Thread.interrupted()) {
+            if (nextMove != null && !isLeaf(initialState)) {
+                initialState = initialState.set(nextMove);
                 nextMove = null;
             }
-            montecarlo(initialNode);
-//            i++;
-//            if (i > 80000) {
-//                for (Point move : initialNode.initialState.getAllMoves()) {
-//                    MonteCarloNode testNode = initialNode.get(move);
-//                    double testValue = testNode.selectionFunction();
-//                    System.out.println("(" + move.x + ", " + move.y + ") value: " + df.format(testValue) + " Win/Play " +
-//                            testNode.wins + ":" + testNode.plays);
-//                }
-//                i = 0;
-//            }
+            montecarlo(initialState);
         }
         System.out.println("All over!");
+        System.out.println(initialState.winner);
     }
 
-    private void montecarlo(MonteCarloNode initialNode) {
-        int  currentDepth = 0;
-        int maxDepth = 5;
-        // Keep track of all the parents
-        HashSet<MonteCarloNode> parentNodes = new HashSet<>();
-        parentNodes.add(initialNode);
-        /**
-         * First selection
-         */
-        MonteCarloNode selectedNode = initialNode;
-        assert selectedNode != null;
-        while (!selectedNode.isLeaf() && currentDepth < maxDepth) {
-            selectedNode = selectedNode.select();
-            parentNodes.add(selectedNode);
-            currentDepth++;
+    public void montecarlo(BoardState initialState) {
+        ArrayList<BoardState> parentStates = new ArrayList<>();
+        if (!plays.containsKey(initialState)) plays.put(initialState, new AtomicInteger(0));
+        if (!wins.containsKey(initialState)) wins.put(initialState, new AtomicInteger(0));
+
+        BoardState selectedState = initialState;
+        parentStates.add(selectedState);
+        while (!isLeaf(selectedState) && selectedState.getAllMoves().length > 0) {
+            selectedState = select(selectedState);
+            parentStates.add(selectedState);
         }
+        if (plays.get(selectedState).intValue() > 25)
+            expand(selectedState);
 
-        /**
-         * Expansion
-         */
-        if (selectedNode.plays > 25 && currentDepth < maxDepth) selectedNode.expand();
-
-        /**
-         * Simulation
-         */
-        double won = selectedNode.simulate();
+        boolean won = simulate(selectedState);
         // Back Propagation
-        for (MonteCarloNode parent : parentNodes) {
-            parent.plays++;
-            parent.wins += won;
+        for (BoardState parent : parentStates) {
+            plays.get(parent).incrementAndGet();
+            if (won) wins.get(parent).incrementAndGet();
         }
+    }
+
+    private boolean simulate(BoardState selectedState) {
+        while (selectedState.winner == Tile.EMPTY && selectedState.getAllMoves().length > 0) {
+            Point[] allMoves = selectedState.getAllMoves();
+            selectedState = selectedState.set(allMoves[rng.nextInt(allMoves.length)]);
+        }
+        return selectedState.winner == tile;
+    }
+
+    private void expand(BoardState selectedState) {
+        for (Point move: selectedState.getAllMoves()) {
+            BoardState nextState = selectedState.set(move);
+            plays.put(nextState, new AtomicInteger(0));
+            wins.put(nextState, new AtomicInteger(0));
+        }
+    }
+
+    private BoardState select(BoardState selectedState) {
+        if (selectedState.getAllMoves().length == 0) return selectedState;
+        Point[] allMoves = selectedState.getAllMoves();
+        return selectedState.set(allMoves[rng.nextInt(allMoves.length)]);
+    }
+
+    private boolean isLeaf(BoardState selectedState) {
+        for (Point move : selectedState.getAllMoves()) {
+            if (!plays.containsKey(selectedState.set(move))) return true;
+        }
+        return false;
     }
 
     public Point getBest() {
-        return initialNode.bestChild().initialPoint;
+        Point bestMove = null;
+        double bestScore = -1;
+        for (Point nextMove : initialState.getAllMoves()) {
+            BoardState nextState = initialState.set(nextMove);
+            double _wins = wins.get(nextState).doubleValue(), _plays = plays.get(nextState).doubleValue();
+            System.out.println("Plays: " + _plays + " Wins: " + _wins);
+            double score = _wins / _plays + 1;
+            if (score > bestScore || bestMove == null) {
+                bestMove = nextMove;
+                bestScore = score;
+            }
+        }
+        return bestMove;
     }
 }

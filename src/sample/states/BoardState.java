@@ -5,12 +5,13 @@ import sample.InvalidBoardException;
 import sample.Tile;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Represents a single possible state of the Connect4 Board
  */
-public class BoardState {
+public class BoardState implements Serializable {
     private Tile[][] state;
     public Tile turn;
     private final Map<Tile, ArrayList<Point[]>> runs = new HashMap<>();

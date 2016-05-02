@@ -8,9 +8,6 @@ import sample.Tile;
 import sample.states.BoardState;
 
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 
 /**
  * Created by Nick on 4/14/2016.
@@ -26,16 +23,7 @@ public class MonteCarloAI extends AI {
 
     private void initializeWorker() {
         workerAI = new MonteCarloWorker(board.currentState.get(), tile);
-        try {
-            MonteCarloNode node = new MonteCarloNode(null, board.currentState.get(), tile);
-            ObjectInputStream oos = new ObjectInputStream(new FileInputStream("MonteCarlo.data"));
-            double[][] serializedNode = (double[][])oos.readObject();
-            node.deserialize(serializedNode);
-            workerAI.initialNode = node;
-            oos.close();
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
+        //TODO: read from file here
         Thread monteCarloThread = new Thread(workerAI);
         monteCarloThread.setDaemon(true);
         monteCarloThread.start();
@@ -47,7 +35,7 @@ public class MonteCarloAI extends AI {
         if (newVal.turn == tile && newVal.winner == Tile.EMPTY && newVal.getAllMoves().length > 0) {
             if (workerAI == null) initializeWorker();
 
-            MonteCarloAlgo grabTask = new MonteCarloAlgo(workerAI, tile);
+            GrabTask grabTask = new GrabTask(workerAI, tile);
             grabTask.setOnSucceeded((event) -> board.set(grabTask.getValue()));
             new Thread(grabTask).start();
         }
