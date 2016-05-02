@@ -157,3 +157,10 @@ JFXButton MaterialIconView {
     -fx-border-radius: 1.4;
 }
 
+.jfx-text-field {
+    -fx-unfocus-color: WHITE;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 24px;
+    -fx-font-family: sans-serif;
+}
