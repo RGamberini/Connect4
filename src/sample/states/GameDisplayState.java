@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import sample.*;
+import sample.AI.MonteCarlo.MonteCarloAI;
 
 import java.awt.*;
 
@@ -18,6 +19,7 @@ import java.awt.*;
  */
 public class GameDisplayState extends State {
     private final Connect4Display display;
+    private final Connect4Board model;
     private final StackPane mainStack;
     private final JFXDialog wonDialog;
     protected final StateDisplay main;
@@ -31,6 +33,7 @@ public class GameDisplayState extends State {
         mainStack.getChildren().add(new DisplayControls(display, new SettingsDialog(main, display)));
 
         wonDialog = new JFXDialog(mainStack, new WonDialog(main, model), JFXDialog.DialogTransition.CENTER);
+        this.model = model;
         model.won.addListener(this::gameWon);
     }
 
@@ -58,6 +61,11 @@ public class GameDisplayState extends State {
 
     @Override
     public Transition exit() {
+        for (Tile tile: Connect4Board.turnOrder) {
+            Player player = model.getPlayer(tile);
+            if (player instanceof MonteCarloAI) {
+            }
+        }
         return Animations.sweepOutDown(this.mainStack);
     }
 

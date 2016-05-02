@@ -8,6 +8,11 @@ import sample.Tile;
 import sample.states.BoardState;
 
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Nick on 4/14/2016.
@@ -23,7 +28,6 @@ public class MonteCarloAI extends AI {
 
     private void initializeWorker() {
         workerAI = new MonteCarloWorker(board.currentState.get(), tile);
-        //TODO: read from file here
         Thread monteCarloThread = new Thread(workerAI);
         monteCarloThread.setDaemon(true);
         monteCarloThread.start();
