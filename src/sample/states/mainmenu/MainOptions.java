@@ -28,10 +28,12 @@ public class MainOptions extends MainMenuOption {
 
         RudeButton loadgame = new RudeButton("", new ImageView("mainmenu/loadgame.png"), new LoadGameOption(main, header, contentStack));
 
+        RudeButton multiplayer = new RudeButton("", new ImageView("mainmenu/multiplayer.png"), new OptionsOption(main, header, contentStack));
+
         RudeButton options = new RudeButton("", new ImageView("mainmenu/options.png"), new OptionsOption(main, header, contentStack));
 
         RudeButton quit = new RudeButton("", new ImageView("mainmenu/quitgame.png"), null);
-        buttons = new RudeButton[]{newgame, loadgame, options, quit};
+        buttons = new RudeButton[]{newgame, loadgame, multiplayer, options, quit};
 
         for (RudeButton button : buttons) {
             button.prefWidthProperty().bind(Bindings.multiply(.75, main.maxWidthProperty()));

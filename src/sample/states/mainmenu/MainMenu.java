@@ -24,7 +24,7 @@ public class MainMenu extends Menu implements StateMachine {
         headerBG.minHeightProperty().bind(Bindings.multiply(.20, main._height));
 
         this.maxWidthProperty().bind(Bindings.divide(main._width, 1.8));
-        this.maxHeightProperty().bind(Bindings.divide(main._height, 1.3));
+        this.maxHeightProperty().bind(Bindings.divide(main._height, 1.1));
         this.changeState(new MainOptions(this, headerStack, contentStack));
     }
 

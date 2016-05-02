@@ -9,16 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="179.74724mm"
-   height="21.879456mm"
-   viewBox="0 0 636.89965 77.525629"
+   width="197.50053mm"
+   height="21.498083mm"
+   viewBox="0 0 699.80504 76.174309"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="playerone.svg"
-   inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\mainmenu\newgame\playerone.png"
-   inkscape:export-xdpi="48.758072"
-   inkscape:export-ydpi="48.758072">
+   sodipodi:docname="multiplayer.svg"
+   inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\newgame_HEADER.png"
+   inkscape:export-xdpi="72"
+   inkscape:export-ydpi="72">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -26,8 +26,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="8.4752914"
-     inkscape:cx="-99.034634"
+     inkscape:zoom="0.73214696"
+     inkscape:cx="406.20564"
      inkscape:cy="42.243229"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -66,7 +66,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -74,7 +74,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-5.195924,-1.2499962)">
+     transform="translate(-5.195924,-2.6013144)">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:98.14134979px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -83,14 +83,14 @@
        id="text4155"
        sodipodi:linespacing="125%"
        transform="scale(0.95747664,1.0444119)"
-       inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\logo.png"
-       inkscape:export-xdpi="71.979515"
-       inkscape:export-ydpi="71.979515"><tspan
+       inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\mainmenu\multiplayer.png"
+       inkscape:export-xdpi="35.445023"
+       inkscape:export-ydpi="35.445023"><tspan
          sodipodi:role="line"
          id="tspan4157"
          x="-3.5823843"
          y="74.036125"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">PLAYER ONE</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">MULTIPLAYER</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot6711"

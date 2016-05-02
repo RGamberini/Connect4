@@ -36,6 +36,7 @@ public class NewGameOption extends MainMenuOption {
 
             playerTypePickers[i] = new PlayerTypePicker();
             VBox playerVBox = new VBox(8, playerImage, playerTypePickers[i]);
+            VBox.setVgrow(playerVBox, Priority.ALWAYS);
             playerVBox.setAlignment(Pos.CENTER);
             playerVBox.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
             pickers.getChildren().add(playerVBox);
