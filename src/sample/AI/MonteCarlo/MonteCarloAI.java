@@ -49,7 +49,7 @@ public class MonteCarloAI extends AI {
     }
 
     @Override
-    public PlayerType getAIType() {
+    public PlayerType getPlayerType() {
         return PlayerType.MONTECARLO;
     }
 }

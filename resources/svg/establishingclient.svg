@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="140.67963mm"
+   width="290.95459mm"
    height="21.879456mm"
-   viewBox="0 0 498.47111 77.525629"
+   viewBox="0 0 1030.9415 77.525629"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="connect.svg"
+   sodipodi:docname="establishingclient.svg"
    inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\mainmenu\multiplayer\connect.png"
    inkscape:export-xdpi="32.505379"
    inkscape:export-ydpi="32.505379">
@@ -26,16 +26,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.2455078"
-     inkscape:cx="438.35301"
-     inkscape:cy="-2.9317411"
+     inkscape:zoom="0.71622492"
+     inkscape:cx="1035.5871"
+     inkscape:cy="-117.66644"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-text-baseline="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1058"
-     inkscape:window-x="1912"
+     inkscape:window-height="1018"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      showguides="true"
@@ -66,7 +66,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -74,23 +74,23 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-1.2500305,-1.2499962)">
+     transform="translate(0.63119628,-1.2499962)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:98.14134979px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:98.14134979px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;"
        x="-3.5823843"
        y="74.036125"
        id="text4155"
        sodipodi:linespacing="125%"
        transform="scale(0.95747664,1.0444119)"
-       inkscape:export-filename="C:\Users\TEMP\IdeaProjects\Connect4\resources\mainmenu\loadgame\connect.png"
+       inkscape:export-filename="C:\Users\Nick\IdeaProjects\Connect4\resources\mainmenu\multiplayer\establishing.png"
        inkscape:export-xdpi="55.723511"
        inkscape:export-ydpi="55.723511"><tspan
          sodipodi:role="line"
          id="tspan4157"
          x="-3.5823843"
          y="74.036125"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">CONNECT</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;">WAITING FOR HOST</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot6711"

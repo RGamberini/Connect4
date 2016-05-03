@@ -18,5 +18,5 @@ public class Player {
         return tile;
     }
 
-    public PlayerType getAIType() { return PlayerType.HUMAN; }
+    public PlayerType getPlayerType() { return PlayerType.HUMAN; }
 }

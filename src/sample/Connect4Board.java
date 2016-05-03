@@ -20,7 +20,7 @@ import java.util.Map;
 public class Connect4Board {
     public static final int COLUMNS = 7, ROWS = 6;
     public static final ArrayList<Tile> turnOrder = new ArrayList<>();
-    private final Map<Tile, Player> players;
+    protected final Map<Tile, Player> players;
     public final BooleanProperty won;
 
     static {
@@ -28,26 +28,39 @@ public class Connect4Board {
         turnOrder.add(Tile.PLAYER2);
     }
     public final ObjectProperty<BoardState> currentState;
-    public Connect4Board(PlayerType[] playerTypes) {
+
+
+    protected Connect4Board() {
         currentState = new SimpleObjectProperty<>(new BoardState());
         won = new SimpleBooleanProperty(false);
         this.players = new HashMap<>(turnOrder.size());
-        for (int i = 0; i < turnOrder.size(); i++) {
+
+    }
+    protected void initializePlayers(Player[] players) {
+        for (Player player: players) this.players.put(player.tile, player);
+    }
+
+    public Connect4Board(PlayerType[] playerTypes) {
+        this();
+        Player[] players = new Player[turnOrder.size()];
+        for (int i = 0; i < players.length; i++) {
             Tile tile = turnOrder.get(i);
-            Player player = null;
             switch (playerTypes[i]) {
                 case HUMAN:
-                    player = new Player(this, tile);
+                    players[i] = new Player(this, tile);
                     break;
                 case MINIMAX:
-                    player = new MinimaxAI(this, tile);
+                    players[i] = new MinimaxAI(this, tile);
                     break;
                 case MONTECARLO:
-                    player = new MonteCarloAI(this, tile);
+                    players[i] = new MonteCarloAI(this, tile);
+                    break;
+                case NETWORK:
+                    System.err.println("ERROR: Should be using a NetworkConnect4Board!");
                     break;
             }
-            this.players.put(tile, player);
         }
+        initializePlayers(players);
     }
     public Point getTopCell(int x) { return currentState.get().getTopCell(x);}
     public Tile getCurrentTurn() { return currentState.get().turn;}
@@ -59,7 +72,7 @@ public class Connect4Board {
         PlayerType[] result = new PlayerType[players.size()];
         for (int i = 0; i < Connect4Board.turnOrder.size(); i++) {
             Tile turn = Connect4Board.turnOrder.get(i);
-            result[i] = this.players.get(turn).getAIType();
+            result[i] = this.players.get(turn).getPlayerType();
         }
         return result;
     }

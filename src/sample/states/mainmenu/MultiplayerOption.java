@@ -34,17 +34,21 @@ public class MultiplayerOption extends MainMenuOption {
         StackPane connectHeader = new StackPane(new ImageView("mainmenu/multiplayer/connect.png"));
         connectHeader.setAlignment(Pos.CENTER);
 
-        TextField textField = new TextField();
-        textField.setPadding(new Insets(0, 0, 1, 0));
-        textField.setAlignment(Pos.CENTER);
-        textField.setPromptText("IP");
-        textField.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
+        TextField remoteIP = new TextField();
+        remoteIP.setText("localhost");
+        remoteIP.setPadding(new Insets(0, 0, 1, 0));
+        remoteIP.setAlignment(Pos.CENTER);
+        remoteIP.setPromptText("IP");
+        remoteIP.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
 
         JFXButton connectPlayButton = new JFXButton("", new ImageView("mainmenu/multiplayer/connect.png"));
+        connectPlayButton.setOnMouseClicked((event) ->
+                main.changeState(
+                        new EstablishConnection(main, header, contentStack, playerTypePicker.getCurrentType(), remoteIP.getText())));
         connectPlayButton.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
         connectPlayButton.getStyleClass().add("main-menu-button");
 
-        VBox connectVBox = new VBox(textField, connectPlayButton);
+        VBox connectVBox = new VBox(remoteIP, connectPlayButton);
         connectVBox.setAlignment(Pos.CENTER);
         connectVBox.spacingProperty().bind(Bindings.divide(content.spacingProperty(), 1.2));
         content.getChildren().add(connectVBox);
@@ -63,7 +67,9 @@ public class MultiplayerOption extends MainMenuOption {
         }
 
         JFXButton host = new JFXButton("", new ImageView("mainmenu/multiplayer/host.png"));
-        host.setOnMouseClicked((event) -> main.changeState(new MainOptions(main, header, contentStack), true));
+        host.setOnMouseClicked((event) ->
+                main.changeState(
+                        new EstablishConnection(main, header, contentStack, playerTypePicker.getCurrentType(), null)));
         host.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
         host.getStyleClass().add("main-menu-button");
 
