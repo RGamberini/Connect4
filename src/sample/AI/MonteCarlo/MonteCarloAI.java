@@ -2,17 +2,12 @@ package sample.AI.MonteCarlo;
 
 import com.sun.istack.internal.Nullable;
 import sample.AI.AI;
-import sample.AI.AIType;
+import sample.AI.PlayerType;
 import sample.Connect4Board;
 import sample.Tile;
 import sample.states.BoardState;
 
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Nick on 4/14/2016.
@@ -54,7 +49,7 @@ public class MonteCarloAI extends AI {
     }
 
     @Override
-    public AIType getAIType() {
-        return AIType.MONTECARLO;
+    public PlayerType getAIType() {
+        return PlayerType.MONTECARLO;
     }
 }

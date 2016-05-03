@@ -4,7 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import sample.AI.AIType;
+import sample.AI.PlayerType;
 import sample.AI.MinimaxAI;
 import sample.AI.MonteCarlo.MonteCarloAI;
 import sample.states.BoardState;
@@ -28,14 +28,14 @@ public class Connect4Board {
         turnOrder.add(Tile.PLAYER2);
     }
     public final ObjectProperty<BoardState> currentState;
-    public Connect4Board(AIType[] playerAITypes) {
+    public Connect4Board(PlayerType[] playerTypes) {
         currentState = new SimpleObjectProperty<>(new BoardState());
         won = new SimpleBooleanProperty(false);
         this.players = new HashMap<>(turnOrder.size());
         for (int i = 0; i < turnOrder.size(); i++) {
             Tile tile = turnOrder.get(i);
             Player player = null;
-            switch (playerAITypes[i]) {
+            switch (playerTypes[i]) {
                 case HUMAN:
                     player = new Player(this, tile);
                     break;
@@ -55,8 +55,8 @@ public class Connect4Board {
     public Point[] getAllMoves() { return this.currentState.get().getAllMoves();}
     public Player getPlayer(Tile tile) { return this.players.get(tile);}
     public Map<Tile, Player> getPlayers() { return players;}
-    public AIType[] getAITypes() {
-        AIType[] result = new AIType[players.size()];
+    public PlayerType[] getAITypes() {
+        PlayerType[] result = new PlayerType[players.size()];
         for (int i = 0; i < Connect4Board.turnOrder.size(); i++) {
             Tile turn = Connect4Board.turnOrder.get(i);
             result[i] = this.players.get(turn).getAIType();

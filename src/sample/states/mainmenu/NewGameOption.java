@@ -12,8 +12,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import sample.AI.AIType;
+import sample.AI.PlayerType;
 import sample.Connect4Board;
+import sample.PlayerTypePicker;
 
 import java.util.HashMap;
 
@@ -52,7 +53,7 @@ public class NewGameOption extends MainMenuOption {
          * Buttons
          */
         JFXButton confirm = new JFXButton("", new ImageView("mainmenu/newgame/confirm.png"));
-        confirm.setOnMouseClicked((event) -> main.createNewGame(new Connect4Board(new AIType[]{playerTypePickers[0].getCurrentType(), playerTypePickers[1].getCurrentType()})));
+        confirm.setOnMouseClicked((event) -> main.createNewGame(new Connect4Board(new PlayerType[]{playerTypePickers[0].getCurrentType(), playerTypePickers[1].getCurrentType()})));
         confirm.maxWidthProperty().bind(Bindings.divide(main.maxWidthProperty(), 1.4));
         confirm.getStyleClass().add("main-menu-button");
 
@@ -66,71 +67,5 @@ public class NewGameOption extends MainMenuOption {
         VBox.setMargin(buttons, new Insets(0, 0, 24, 0));
         buttons.setAlignment(Pos.BOTTOM_CENTER);
         content.getChildren().add(buttons);
-    }
-
-    private static HashMap<AIType, Image> images = new HashMap<>();
-    static {
-                images.put(AIType.HUMAN, new Image("mainmenu/newgame/human.png"));
-                images.put(AIType.MINIMAX, new Image("mainmenu/newgame/minimax.png"));
-                images.put(AIType.MONTECARLO, new Image("mainmenu/newgame/montecarlo.png"));
-    }
-
-    class PlayerTypePicker extends HBox {
-        private final AIType[] AITypes = new AIType[] {
-                AIType.HUMAN, AIType.MINIMAX, AIType.MONTECARLO
-        };
-        public IntegerProperty currentIndex;
-        public PlayerTypePicker() {
-            super(8);
-            this.setAlignment(Pos.CENTER);
-            this.getStyleClass().add("number");
-
-            currentIndex = new SimpleIntegerProperty(-1);
-
-            StackPane imagePane = new StackPane();
-            imagePane.setPrefWidth(images.get(AIType.MONTECARLO).getWidth());
-            ImageView currentImage = new ImageView();
-            imagePane.getChildren().add(currentImage);
-
-            ImageView carrotLeft = new ImageView("numbers/carrot_right.png");
-            carrotLeft.setScaleX(-1);
-            JFXButton leftArrow = new JFXButton("", carrotLeft);
-            leftArrow.getStyleClass().add("carrot");
-
-            ImageView carrotRight = new ImageView("numbers/carrot_right.png");
-            JFXButton rightArrow = new JFXButton("", carrotRight);
-            rightArrow.getStyleClass().add("carrot");
-
-            this.getChildren().addAll(leftArrow, imagePane, rightArrow);
-
-            /**
-            * Event handlers
-            */
-            currentIndex.addListener((o, oldVal, newVal) -> {
-                currentImage.setImage(images.get(AITypes[newVal.intValue()]));
-                if (newVal.intValue() == 2)
-                    rightArrow.setDisable(true);
-                else
-                    rightArrow.setDisable(false);
-                if (newVal.intValue() == 0)
-                    leftArrow.setDisable(true);
-                else
-                    leftArrow.setDisable(false);
-            });
-
-            rightArrow.setOnMouseClicked((event) -> {
-                if (currentIndex.get() < 2)
-                    currentIndex.setValue(currentIndex.get() + 1);
-            });
-
-            leftArrow.setOnMouseClicked((event) -> {
-                if (currentIndex.get() > 0)
-                    currentIndex.setValue(currentIndex.get() - 1);
-            });
-            currentIndex.set(0);
-        }
-        public AIType getCurrentType() {
-            return AITypes[currentIndex.get()];
-        }
     }
 }

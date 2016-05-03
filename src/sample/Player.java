@@ -1,6 +1,6 @@
 package sample;
 
-import sample.AI.AIType;
+import sample.AI.PlayerType;
 
 /**
  * Obviously a Player who is not an AI.
@@ -18,5 +18,5 @@ public class Player {
         return tile;
     }
 
-    public AIType getAIType() { return AIType.HUMAN; }
+    public PlayerType getAIType() { return PlayerType.HUMAN; }
 }

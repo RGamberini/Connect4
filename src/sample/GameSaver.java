@@ -1,11 +1,9 @@
 package sample;
 
-import sample.AI.AI;
-import sample.AI.AIType;
+import sample.AI.PlayerType;
 import sample.states.BoardState;
 
 import java.io.*;
-import java.util.Map;
 
 /**
  * Static class that takes files in and out and returns Connect4Boards.
@@ -18,9 +16,9 @@ public class GameSaver {
             BoardState state = board.currentState.get();
             Tile[][] stateCopy = state.getState();
             boolean firstIteration = true;
-            for (AIType aiType: board.getAITypes()) {
+            for (PlayerType playerType : board.getAITypes()) {
                 if (!firstIteration) sb.append(" ");
-                sb.append(aiType);
+                sb.append(playerType);
                 firstIteration = false;
             }
             sb.append("\n");
@@ -45,9 +43,9 @@ public class GameSaver {
             BufferedReader reader = new BufferedReader(new FileReader(input));
 
             String[] split = reader.readLine().split(" ");
-            AIType[] aiTypes = new AIType[split.length];
+            PlayerType[] playerTypes = new PlayerType[split.length];
             for (int i = 0; i < split.length; i++) {
-                aiTypes[i] = AIType.valueOf(split[i]);
+                playerTypes[i] = PlayerType.valueOf(split[i]);
             }
 
             Tile currentTurn = Tile.valueOf(reader.readLine());
@@ -59,7 +57,7 @@ public class GameSaver {
                 }
             }
             BoardState newState = new BoardState(state, currentTurn);
-            Connect4Board newBoard = new Connect4Board(aiTypes);
+            Connect4Board newBoard = new Connect4Board(playerTypes);
             newBoard.currentState.set(newState);
             return newBoard;
 
